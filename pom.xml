@@ -65,5 +65,6 @@
 		<module>jprog2-jpa</module>
 		<module>jprog2-io</module>
 		<module>jprog2-lambda-expressions</module>
+		<module>jprog2-multithreading</module>
 	</modules>
 </project>
