@@ -20,7 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * 
  * <p>
  * Swagger documentation is accessible at the following link:
- * http://localhost:{port}/{API-ROOT-CONTEXT}/swagger-ui.his.munitml (localhost example)
+ * http://localhost:{port}/{API-ROOT-CONTEXT}/swagger-ui.html (localhost example)
  * </p>
  * 
  * @author Pavel Šeda
