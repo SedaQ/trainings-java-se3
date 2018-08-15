@@ -3,12 +3,14 @@ package com.trainings.rest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +25,7 @@ import com.trainings.facade.exceptions.FacadeLayerException;
 import com.trainings.facade.iface.RelationshipTypeFacade;
 import com.trainings.jpa.model.RelationshipType;
 import com.trainings.rest.exceptions.ResourceNotFoundException;
+import com.trainings.rest.utils.HttpHeadersAcceptAndContentType;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -93,11 +96,16 @@ public class RelationshipTypeRestController {
 	  @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	  public ResponseEntity<Object> findRelationshipTypeById(@ApiParam(name = "RelationshipType Id") @PathVariable Long id,
 	      @ApiParam(value = "Fields which should be returned in REST API response", required = false) 
-	      @RequestParam(value = "fields", required = false) String fields) {
+	      @RequestParam(value = "fields", required = false) String fields,
+	      @RequestHeader HttpHeaders headers) {
 	    try {
 	      RelationshipTypeDTO relationshipTypeResource = relationshipTypeFacade.findById(id);
-	      Squiggly.init(objectMapper, fields);
-	      return new ResponseEntity<>(SquigglyUtils.stringify(objectMapper, relationshipTypeResource), HttpStatus.OK);
+	      if(HttpHeadersAcceptAndContentType.isJson(headers)) {
+		      Squiggly.init(objectMapper, fields);
+		      return new ResponseEntity<>(SquigglyUtils.stringify(objectMapper, relationshipTypeResource), HttpStatus.OK);
+	      } else {
+	    	  return new ResponseEntity<>(relationshipTypeResource, HttpStatus.OK);
+	      }
 	    } catch (FacadeLayerException ex) {
 	      throw new ResourceNotFoundException(ex.getLocalizedMessage());
 	    }
@@ -133,11 +141,16 @@ public class RelationshipTypeRestController {
 	  public ResponseEntity<Object> findAllRelationshipTypes(@QuerydslPredicate(root = RelationshipType.class) Predicate predicate, Pageable pageable,
 	      @RequestParam MultiValueMap<String, String> parameters, 
 	      @ApiParam(value = "Fields which should be returned in REST API response", required = false) 
-	      @RequestParam(value = "fields", required = false) String fields) {
+	      @RequestParam(value = "fields", required = false) String fields,
+	      @RequestHeader HttpHeaders headers) {
 	    try {
 	      PageResultResource<RelationshipTypeDTO> relationshipTypeResource = relationshipTypeFacade.findAll(predicate, pageable);
-	      Squiggly.init(objectMapper, fields);
-	      return new ResponseEntity<>(SquigglyUtils.stringify(objectMapper, relationshipTypeResource), HttpStatus.OK);
+	      if(HttpHeadersAcceptAndContentType.isJson(headers)) {
+		      Squiggly.init(objectMapper, fields);
+		      return new ResponseEntity<>(SquigglyUtils.stringify(objectMapper, relationshipTypeResource), HttpStatus.OK);
+	      } else {
+	    	  return new ResponseEntity<>(relationshipTypeResource, HttpStatus.OK);
+	      }
 	    } catch (FacadeLayerException ex) {
 	      throw new ResourceNotFoundException(ex.getLocalizedMessage());
 	    }
