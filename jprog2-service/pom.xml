@@ -7,7 +7,8 @@
 		<artifactId>jprog2-parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	<artifactId>jprog2-soap</artifactId>
+	<artifactId>jprog2-service</artifactId>
+	<packaging>jar</packaging>
 
 	<properties>
 		<maven.compiler.source>10</maven.compiler.source>
@@ -15,6 +16,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.trainings.sedaq</groupId>
+			<artifactId>jprog2-jpa</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -29,6 +38,23 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<encoding>UTF-8</encoding>
+					<debug>true</debug>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.ow2.asm</groupId>
+						<artifactId>asm</artifactId>
+						<version>6.2</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<configuration>
 					<encoding>UTF-8</encoding>
@@ -36,5 +62,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
