@@ -1,0 +1,15 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://soap.trainings.com/entities/meetings"
+	targetNamespace="http://soap.trainings.com/entities/meetings"
+	elementFormDefault="qualified">
+
+	<xs:complexType name="userMeetings">
+		<xs:sequence>
+			<xs:element name="idMeeting" type="xs:long" />
+			<xs:element name="meetingDateTime" type="xs:dateTime" />
+			<xs:element name="place" type="xs:string" />
+			<xs:element name="note" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

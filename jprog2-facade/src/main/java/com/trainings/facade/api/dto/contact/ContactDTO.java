@@ -1,5 +1,6 @@
 package com.trainings.facade.api.dto.contact;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.trainings.facade.api.dto.user.ContactUserDTO;
 
 /**
@@ -7,6 +8,7 @@ import com.trainings.facade.api.dto.user.ContactUserDTO;
  * @author Pavel Šeda
  *
  */
+@JacksonXmlRootElement(localName="contact")
 public class ContactDTO {
 
 	private Long idContact;

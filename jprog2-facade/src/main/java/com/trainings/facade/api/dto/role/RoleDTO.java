@@ -3,6 +3,7 @@ package com.trainings.facade.api.dto.role;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.trainings.facade.api.dto.user.RoleUsersDTO;
 
 /**
@@ -10,6 +11,7 @@ import com.trainings.facade.api.dto.user.RoleUsersDTO;
  * @author Pavel Šeda
  *
  */
+@JacksonXmlRootElement(localName="role")
 public class RoleDTO {
 
 	private Long idRole;

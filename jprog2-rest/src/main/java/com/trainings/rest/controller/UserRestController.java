@@ -118,11 +118,11 @@ public class UserRestController {
 		      @RequestHeader HttpHeaders headers){
 	    try {
 	      UserDTO userResource = userFacade.findById(id);
-	      if(HttpHeadersAcceptAndContentType.isJson(headers)) {
+	      if(HttpHeadersAcceptAndContentType.isXML(headers)) {
+	    	  return new ResponseEntity<>(userResource, HttpStatus.OK);
+	      } else {
 		      Squiggly.init(objectMapper, fields);
 		      return new ResponseEntity<>(SquigglyUtils.stringify(objectMapper, userResource), HttpStatus.OK);
-	      } else {
-	    	  return new ResponseEntity<>(userResource, HttpStatus.OK);
 	      }
 	    } catch (FacadeLayerException ex) {
 	      throw new ResourceNotFoundException(ex.getLocalizedMessage());

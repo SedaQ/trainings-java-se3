@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Import;
 
 import com.trainings.service.config.ServiceConfig;
 
+
 /**
  * 
  * @author Pavel Šeda

@@ -1,10 +1,13 @@
 package com.trainings.facade.api.dto.relationship;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
 /**
  * 
  * @author Pavel Šeda
  *
  */
+@JacksonXmlRootElement(localName="relationship")
 public class RelationshipDTO {
 
 	private Long idRelationship;

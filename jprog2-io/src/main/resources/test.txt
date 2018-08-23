@@ -1,0 +1,4 @@
+something here..
+[2019......] ERROR hardware is down
+[2018......] WARNING
+[2017......] ERROR database is down

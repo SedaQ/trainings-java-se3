@@ -6,8 +6,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.trainings.facade.api.dto.meeting.UserMeetingsDTO;
 
 /**
@@ -15,6 +18,8 @@ import com.trainings.facade.api.dto.meeting.UserMeetingsDTO;
  * @author Pavel Šeda
  *
  */
+@JacksonXmlRootElement(localName = "user")
+@XmlRootElement(name = "user")
 public class UserDTO {
 
 	private Long idUser;

@@ -6,6 +6,7 @@ import java.util.List;
 import org.jsondoc.core.annotation.ApiObject;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -20,11 +21,12 @@ import io.swagger.annotations.ApiModelProperty;
  *
  */
 @ApiObject(name = "Result info (Page)", description = "Content (Retrieved data) and meta information about REST API result page. Including page number, number of elements in page, size of elements, total number of elements and total number of pages")
-@JacksonXmlRootElement(localName="page_resource")
+@JacksonXmlRootElement(localName = "page_resource")
 public class PageResultResource<E> {
 
 	@JsonProperty(required = true)
 	@ApiModelProperty(value = "Content - (Retrieved data) from databases.")
+	@JacksonXmlProperty(localName = "content")
 	private List<E> content;
 	@JsonProperty(required = true)
 	@ApiModelProperty(value = "Pagination including: page number, number of elements in page, size, total elements and total pages.")

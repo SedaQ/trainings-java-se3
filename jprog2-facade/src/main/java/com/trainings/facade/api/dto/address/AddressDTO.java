@@ -1,10 +1,13 @@
 package com.trainings.facade.api.dto.address;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
 /**
  * 
  * @author Pavel Šeda
  *
  */
+@JacksonXmlRootElement(localName="address")
 public class AddressDTO {
 
 	private Long idAddress;

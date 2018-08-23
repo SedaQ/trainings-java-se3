@@ -13,7 +13,7 @@ import com.trainings.jpa.config.PersistenceConfig;
  */
 @Configuration
 @Import(PersistenceConfig.class)
-@ComponentScan(basePackages = { "com.trainings.service.impl", "com.trainings.service.iface" })
+@ComponentScan(basePackages = { "com.trainings.service.impl", "com.trainings.service.iface"})
 public class ServiceConfig {
 
 }

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.trainings.facade.api.dto.user.MeetingUsersDTO;
 
 /**
@@ -11,6 +12,7 @@ import com.trainings.facade.api.dto.user.MeetingUsersDTO;
  * @author Pavel Šeda
  *
  */
+@JacksonXmlRootElement(localName="meeting")
 public class MeetingDTO {
 
 	private Long idMeeting;
