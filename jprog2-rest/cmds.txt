@@ -1,0 +1,2 @@
+# running spring boot project from cmd
+mvn spring-boot:run

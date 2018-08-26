@@ -4,7 +4,9 @@ import com.trainings.javafx.model.User;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -12,8 +14,10 @@ import javafx.stage.Stage;
  * @author Pavel Šeda
  *
  */
-public class UserEditDialogController {
+public class UserViewDialogController {
 
+	@FXML
+	private ImageView userImageView;
 	@FXML
 	private TextField emailTextField;
 	@FXML
@@ -23,30 +27,30 @@ public class UserEditDialogController {
 	@FXML
 	private TextField surnameTextField;
 	@FXML
-	private DatePicker birthdayDatePicker;
-	@FXML
-	private Button okButton;
-	@FXML
 	private Button cancelButton;
-
-	public UserEditDialogController() {
-	}
+	@FXML
+	private TextField addressIdTextField;
+	@FXML
+	private TextField birthdayTextField;
 
 	@FXML
 	private void initialize() {
+		emailTextField.setEditable(false);
+		nickNameTextField.setEditable(false);
+		firstNameTextField.setEditable(false);
+		surnameTextField.setEditable(false);
+		addressIdTextField.setEditable(false);
+		birthdayTextField.setEditable(false);
 	}
 
-	@FXML
-	void editUser(ActionEvent event) {
-		// edit user in DB
-	}
-
-	public void initializeFieldsWithOldValues(User user) {
+	public void initializeFields(User user) {
 		this.emailTextField.setText(user.getEmail());
 		this.nickNameTextField.setText(user.getNickname());
 		this.firstNameTextField.setText(user.getFirstName());
 		this.surnameTextField.setText(user.getSurname());
-		this.birthdayDatePicker.setValue(user.getBirthday());
+		this.birthdayTextField.setText(user.getBirthday().toString());
+		this.addressIdTextField.setText(String.valueOf(user.getIdAddress()));
+		this.userImageView.setImage(user.imageProperty().get().getImage());
 	}
 
 	@FXML

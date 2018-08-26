@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -15,10 +16,7 @@
 
 <!-- fx:controller="com.trainings.javafx.controllers.UsersTabPaneController" -->
 
-<VBox fx:id="usersTabPane" prefWidth="600.0"
-	xmlns="http://javafx.com/javafx/10.0.1"
-	xmlns:fx="http://javafx.com/fxml"
-	fx:controller="com.trainings.javafx.controllers.UsersTabPaneController">
+<VBox fx:id="usersTabPane" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trainings.javafx.controllers.UsersTabPaneController">
 	<HBox prefWidth="200.0">
 		<children>
 			<Label text="Filter users: ">
@@ -26,22 +24,30 @@
 					<Insets bottom="10.0" left="10.0" top="10.0" />
 				</HBox.margin>
 			</Label>
-			<TextField fx:id="filterUsers">
+			<TextField fx:id="filterUsers" style="-fx-background-color: white;" styleClass="text-field" stylesheets="@../../../css/modena.css">
 				<HBox.margin>
 					<Insets bottom="10.0" top="8.0" />
 				</HBox.margin>
 			</TextField>
-			<Label text=" Refresh table data">
+			<Label text=" Refresh data">
 				<HBox.margin>
 					<Insets bottom="10.0" left="25.0" top="10.0" />
 				</HBox.margin>
 			</Label>
-			<ProgressIndicator fx:id="progressIndicator"
-				progress="0.39">
+			<ProgressBar fx:id="refreshTableProgressBar" prefWidth="200.0" progress="0.0">
 				<HBox.margin>
-					<Insets left="25.0" />
+					<Insets left="10.0" top="10.0" />
 				</HBox.margin>
-			</ProgressIndicator>
+			</ProgressBar>
+			<Label fx:id="timerLabel">
+				<padding>
+					<Insets left="10.0" top="10.0" />
+				</padding>
+			</Label>
+         <ProgressIndicator fx:id="refreshDataProgressIndicator" maxWidth="20.0" progress="0.0">
+            <HBox.margin>
+               <Insets left="10.0" />
+            </HBox.margin></ProgressIndicator>
 		</children>
 		<VBox.margin>
 			<Insets top="15.0" />
@@ -53,27 +59,17 @@
 				<content>
 					<BorderPane prefHeight="200.0" prefWidth="200.0">
 						<center>
-							<TableView fx:id="usersTableView" prefHeight="200.0"
-								prefWidth="200.0" BorderPane.alignment="CENTER">
+							<TableView fx:id="usersTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 								<columns>
-									<TableColumn fx:id="userImageCol" prefWidth="75.0"
-										text="image" />
-									<TableColumn fx:id="userIdCol" prefWidth="75.0"
-										text="id" />
-									<TableColumn fx:id="userEmailCol" prefWidth="75.0"
-										text="email" />
-									<TableColumn fx:id="userNicknameCol"
-										prefWidth="75.0" text="nickname" />
-									<TableColumn fx:id="userFirstNameCol"
-										prefWidth="75.0" text="first name" />
-									<TableColumn fx:id="userSurnameCol"
-										prefWidth="75.0" text="surname" />
-									<TableColumn fx:id="userBirthdayCol"
-										prefWidth="75.0" text="birthday" />
-									<TableColumn fx:id="userAgeCol" prefWidth="75.0"
-										text="age" />
-									<TableColumn fx:id="idAddress" prefWidth="75.0"
-										text="id address" />
+									<TableColumn fx:id="userImageCol" prefWidth="75.0" text="image" />
+									<TableColumn fx:id="userIdCol" prefWidth="75.0" text="id" />
+									<TableColumn fx:id="userEmailCol" prefWidth="75.0" text="email" />
+									<TableColumn fx:id="userNicknameCol" prefWidth="75.0" text="nickname" />
+									<TableColumn fx:id="userFirstNameCol" prefWidth="75.0" text="first name" />
+									<TableColumn fx:id="userSurnameCol" prefWidth="75.0" text="surname" />
+									<TableColumn fx:id="userBirthdayCol" prefWidth="75.0" text="birthday" />
+									<TableColumn fx:id="userAgeCol" prefWidth="75.0" text="age" />
+									<TableColumn fx:id="idAddress" prefWidth="75.0" text="id address" />
 								</columns>
 								<columnResizePolicy>
 									<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -87,9 +83,7 @@
 	</TabPane>
 	<HBox prefHeight="100.0" prefWidth="200.0">
 		<children>
-			<Button fx:id="showAgeDistributionButton"
-				mnemonicParsing="false" onAction="#handleShowAgeDistributionAction"
-				text="Show Age Distribution">
+			<Button fx:id="showAgeDistributionButton" mnemonicParsing="false" onAction="#handleShowAgeDistributionAction" text="Show Age Distribution">
 				<HBox.margin>
 					<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 				</HBox.margin>

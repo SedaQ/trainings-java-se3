@@ -33,8 +33,8 @@ public class UsersList {
 	}
 
 	public ObservableList<User> getMockedListOfUsers() {
-		// Image image = new Image("images/user-icon.jpeg");
-		Image image = null;
+		Image image = new Image(getClass().getResource("/images/user-icon.jpeg").toExternalForm());
+//		Image image = null;
 		ObservableList<User> users = FXCollections.observableArrayList();
 		User user1 = new User(new ImageView(image), 1L, "mamlas@email.cz", "mamlas", "Jan", "Novak",
 				Year.of(1985).atMonth(Month.MARCH).atDay(5), 100, 1);

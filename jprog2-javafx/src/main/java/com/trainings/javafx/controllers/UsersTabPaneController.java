@@ -4,12 +4,21 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
 
 import com.trainings.javafx.model.User;
 import com.trainings.javafx.model.observablelists.UsersList;
 
+import javafx.animation.Animation;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -18,6 +27,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -27,6 +40,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * 
@@ -38,7 +52,7 @@ public class UsersTabPaneController {
 	@FXML
 	private TextField filterUsers;
 	@FXML
-	private ProgressIndicator progressIndicator;
+	private ProgressBar refreshTableProgressBar;
 	@FXML
 	private VBox usersTabPane;
 	@FXML
@@ -63,12 +77,21 @@ public class UsersTabPaneController {
 	private TableColumn<User, Integer> idAddress;
 	@FXML
 	private Button showAgeDistributionButton;
+	@FXML
+	private Label timerLabel;
 	private UsersList usersList;
+	private long refreshRate;
+	private boolean dataRefreshing;
+	private Task<Void> progressIndicatorTask;
+	@FXML
+	private ProgressIndicator refreshDataProgressIndicator;
 
 	/**
 	 * The constructor. The constructor is called before the initialize() method.
 	 */
 	public UsersTabPaneController() {
+		refreshRate = 1_000_000L;
+		dataRefreshing = false;
 	}
 
 	/**
@@ -79,12 +102,16 @@ public class UsersTabPaneController {
 	private void initialize() {
 		initializeTableColumns();
 
+		refreshDataProgressIndicator.setVisible(false);
+
 		usersList = new UsersList();
 		usersTableView.setItems(usersList.getMockedListOfUsers());
 
 		initializeTextFieldsListeners();
 		initializeProgressBars();
 		initializeTableViewListeners();
+
+		timeLine();
 	}
 
 	private void initializeTableColumns() {
@@ -100,50 +127,114 @@ public class UsersTabPaneController {
 	}
 
 	private void initializeProgressBars() {
-//		Task<Void> task = new Task<>() {
-//			@Override
-//			public Void call() {
-//				int max = 1_000_000;
-//				for (int i = 1; i <= max; i++) {
-//					updateProgress(i, max);
-//				}
-//				return null;
-//			}
-//		};
-//		progressIndicator.progressProperty().bind(task.progressProperty());
+		progressIndicatorTask = new Task<>() {
+			@Override
+			public Void call() {
+				for (int i = 1; i <= refreshRate; i++) {
+					updateProgress(i, refreshRate);
+					try {
+						Thread.sleep(10L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				return null;
+			}
+		};
+		refreshDataProgressIndicator.progressProperty().bind(progressIndicatorTask.progressProperty());
+//		 refreshTableProgressBar.setProgress(progressBarTask.getProgress());
+	}
+
+	private void timeLine() {
+		IntegerProperty seconds = new SimpleIntegerProperty();
+		refreshTableProgressBar.progressProperty().bind(seconds.divide(10.0));
+		Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(seconds, 0)),
+				new KeyFrame(Duration.seconds(10), e -> {
+				}, new KeyValue(seconds, 10)));
+		timeline.setOnFinished(event -> {
+			Task<Void> refreshData = new Task<>() {
+				@Override
+				public Void call() {
+					System.out.println("On finished in Task");
+					timeline.stop();
+					refreshDataProgressIndicator.setVisible(true);
+					usersTableView.setItems(usersList.getMockedListOfUsers());
+					refreshDataProgressIndicator.setVisible(false);
+					// refresh data in table..
+					timeline.play();
+					return null;
+				}
+			};
+			Platform.runLater(refreshData);
+		});
+		timeline.setCycleCount(1);
+		timeline.play();
 	}
 
 	private void initializeTableViewListeners() {
 		usersTableView.setRowFactory(tv -> {
 			TableRow<User> row = new TableRow<>();
-			row.setOnMouseClicked(event -> {
+			row.setOnMousePressed(event -> {
+				if (event.isSecondaryButtonDown() && (!row.isEmpty())) {
+					System.out.println("Second button is pressed...");
+					final ContextMenu contextMenu = new ContextMenu();
+					final MenuItem editUserItem = new MenuItem("Edit");
+					final MenuItem viewUserItem = new MenuItem("View");
+
+					editUserItem.setOnAction(ev -> {
+						initializeUserEdit(row);
+					});
+					viewUserItem.setOnAction(ev -> {
+						initializeUserView(row);
+					});
+					contextMenu.getItems().addAll(editUserItem, viewUserItem);
+					// Set context menu on row, but use a binding to make it only show for non-empty
+					// rows:
+					row.contextMenuProperty()
+							.bind(Bindings.when(row.emptyProperty()).then((ContextMenu) null).otherwise(contextMenu));
+					contextMenu.show(row.getScene().getWindow());
+				}
 				if (event.getClickCount() == 2 && (!row.isEmpty())) {
-					try {
-						User rowData = row.getItem();
-
-						FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UserEdit.fxml"));
-						Parent root = fxmlLoader.load();
-						Stage stage = new Stage();
-						stage.setTitle("JProg2 Edit User");
-						stage.setScene(new Scene(root));
-
-						System.out.println(rowData);
-
-						UserEditDialogController userEditController = fxmlLoader
-								.<UserEditDialogController>getController();
-						if (userEditController == null) {
-							System.out.println("WHY THE HELL IS THIS NULL.." + System.lineSeparator());
-						}
-						userEditController.initializeFieldsWithOldValues(rowData);
-						stage.show();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
+					initializeUserEdit(row);
 				}
 			});
 			return row;
 		});
+	}
+
+	private void initializeUserView(TableRow<User> row) {
+		try {
+			User rowData = row.getItem();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UserView.fxml"));
+			Parent root = fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("JProg2 View User");
+			stage.setScene(new Scene(root));
+
+			UserViewDialogController userViewDialogController = fxmlLoader.<UserViewDialogController>getController();
+			userViewDialogController.initializeFields(rowData);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void initializeUserEdit(TableRow<User> row) {
+		try {
+			User rowData = row.getItem();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UserEdit.fxml"));
+			Parent root = fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("JProg2 Edit User");
+			stage.setScene(new Scene(root));
+
+			UserEditDialogController userEditController = fxmlLoader.<UserEditDialogController>getController();
+			userEditController.initializeFieldsWithOldValues(rowData);
+
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -162,7 +253,6 @@ public class UsersTabPaneController {
 			usersAgeDistrib.initPieChartData(usersTableView.getItems());
 			stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

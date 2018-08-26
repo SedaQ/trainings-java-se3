@@ -29,7 +29,11 @@ public class App extends Application {
 		loader.setControllerFactory(initControllerFactory());
 
 		primaryStage.setTitle("JPROG2");
-		primaryStage.setScene(new Scene(mainStage));
+		Scene scene = new Scene(mainStage);
+		String modenaCss = getClass().getResource("/css/modena.css").toExternalForm();
+		scene.getStylesheets().add(modenaCss);
+
+		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 
