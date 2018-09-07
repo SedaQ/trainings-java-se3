@@ -1,5 +1,7 @@
 package com.trainings.rest.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
@@ -10,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +24,7 @@ import com.github.bohnman.squiggly.Squiggly;
 import com.github.bohnman.squiggly.util.SquigglyUtils;
 import com.querydsl.core.types.Predicate;
 import com.trainings.facade.api.PageResultResource;
+import com.trainings.facade.api.dto.address.AddressCreateDTO;
 import com.trainings.facade.api.dto.address.AddressDTO;
 import com.trainings.facade.exceptions.FacadeLayerException;
 import com.trainings.facade.iface.AddressFacade;
@@ -156,6 +161,33 @@ public class AddressRestController {
 	      throw new ResourceNotFoundException(ex.getLocalizedMessage());
 	    }
 	  }
+	  
+	  /**
+	   * Create new address.
+	   * 
+	   * @return Newly created address.
+	   */
+	  //@formatter:off
+	  @ApiOperation(httpMethod = "POST",
+		      value = "Create new address.",
+		      response = AddressCreateDTO.class,
+		      responseContainer = "AddressCreateDTO",
+		      nickname = "createAddress",
+		      produces = "application/json or application/xml"
+		  )
+		  @ApiResponses(value = {
+		      @ApiResponse(code = 404, message = "The requested resource was not found.") 
+		  })
 	  //@formatter:on
+	  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  public ResponseEntity<AddressCreateDTO> createAddress(@ApiParam(value="Address entity to create", required = true)
+	  	  @RequestBody @Valid AddressCreateDTO	addressCreateDTO,
+	      @RequestHeader HttpHeaders headers) {
+	    try {
+	    	return new ResponseEntity<>(addressFacade.create(addressCreateDTO), HttpStatus.CREATED);
+	    } catch (FacadeLayerException ex) {
+	      throw new ResourceNotFoundException(ex.getLocalizedMessage());
+	    }
+	  }
 	  
 }

@@ -1,5 +1,8 @@
 package com.trainings.facade.api.dto.address;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 /**
  * 
  * @author Pavel Šeda
@@ -7,9 +10,13 @@ package com.trainings.facade.api.dto.address;
  */
 public class AddressCreateDTO {
 
+	@NotEmpty(message = "{address.city.NotEmpty.message}")
 	private String city;
+	@NotEmpty(message = "{address.street.NotEmpty.message}")
 	private String street;
+	@NotNull(message = "{address.house.number.NotNull.message}")
 	private Integer houseNumber;
+	@NotEmpty(message = "{address.zip.code.NotEmpty.message}")
 	private String zipCode;
 
 	public AddressCreateDTO() {

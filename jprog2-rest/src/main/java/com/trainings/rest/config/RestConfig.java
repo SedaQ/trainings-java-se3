@@ -17,7 +17,7 @@ import com.trainings.facade.config.FacadeConfig;
  */
 @SpringBootApplication
 @EnableSpringDataWebSupport
-@Import(FacadeConfig.class)
+@Import({ FacadeConfig.class, ValidationMessagesConfig.class })
 @ComponentScan(basePackages = { "com.trainings.rest" })
 public class RestConfig extends SpringBootServletInitializer {
 

@@ -3,6 +3,7 @@ package com.trainings.rest;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
@@ -11,6 +12,8 @@ import javax.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.context.MessageSourceResolvable;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -84,10 +87,9 @@ public class CustomRestExceptionHandlerTraining extends ResponseEntityExceptionH
 		// LOGGER.debug("handleMethodArgumentNotValid({}, {}, {}, {})", ex, headers,
 		// status, request);
 
-		final List<String> errors = new ArrayList<String>();
-		for (final FieldError error : ex.getBindingResult().getFieldErrors()) {
-			errors.add(error.getField() + ": " + error.getDefaultMessage());
-		}
+		final List<String> errors = ex.getBindingResult().getFieldErrors().stream()
+				.map(MessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
+
 		for (final ObjectError error : ex.getBindingResult().getGlobalErrors()) {
 			errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
 		}
