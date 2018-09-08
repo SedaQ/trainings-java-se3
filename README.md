@@ -1,4 +1,4 @@
-# trainings-java-se3
+# Java Examples
 This is the parent project representing several technologies in Java back-end development including REST, SOAP, JDBC, JPA etc. It is divided into several modules.
 
 ## Authors
