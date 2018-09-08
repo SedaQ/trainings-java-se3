@@ -1,6 +1,11 @@
-package com.trainings.facade.api.dto.user;
+package com.trainings.facade.api.dto.person;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -10,27 +15,21 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
  * @author Pavel Šeda
  *
  */
-public class MeetingUsersDTO {
+public class PersonCreateDTO {
 
-	private Long idUser;
+	@NotEmpty
+	@Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\\\\\.[A-Z]{2,6}$", message = "This email is not valid.")
 	private String email;
 	@JsonProperty(access = Access.WRITE_ONLY)
-	private char[] password;
+	private char[] pwd;
 	private String nickname;
 	private String firstName;
 	private String surname;
+	@Past
 	private LocalDate birthday;
 	private Integer age;
 
-	public MeetingUsersDTO() {
-	}
-
-	public Long getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
+	public PersonCreateDTO() {
 	}
 
 	public String getEmail() {
@@ -41,12 +40,12 @@ public class MeetingUsersDTO {
 		this.email = email;
 	}
 
-	public char[] getPassword() {
-		return password;
+	public char[] getPwd() {
+		return pwd;
 	}
 
-	public void setPassword(char[] password) {
-		this.password = password;
+	public void setPwd(char[] pwd) {
+		this.pwd = pwd;
 	}
 
 	public String getNickname() {
@@ -87,6 +86,27 @@ public class MeetingUsersDTO {
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("PersonCreateDTO [email=");
+		builder.append(email);
+		builder.append(", pwd=");
+		builder.append(Arrays.toString(pwd));
+		builder.append(", nickname=");
+		builder.append(nickname);
+		builder.append(", firstName=");
+		builder.append(firstName);
+		builder.append(", surname=");
+		builder.append(surname);
+		builder.append(", birthday=");
+		builder.append(birthday);
+		builder.append(", age=");
+		builder.append(age);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

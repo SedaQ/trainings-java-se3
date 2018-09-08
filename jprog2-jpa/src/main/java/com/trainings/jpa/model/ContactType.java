@@ -25,7 +25,7 @@ public class ContactType implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_contact_type")
+	@Column(name = "id_contact_type", updatable = false, nullable = false)
 	private Long idContactType;
 	@Column(nullable = false, length = 45, unique = true)
 	private String title;
@@ -56,7 +56,7 @@ public class ContactType implements Serializable {
 	}
 
 	public void setContacts(Set<Contact> contacts) {
-		this.contacts = contacts;
+		this.contacts = new HashSet<>(contacts);
 	}
 
 	@Override

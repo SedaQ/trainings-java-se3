@@ -26,16 +26,16 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "\"user\"")
-public class User implements Serializable {
+@Table(name = "\"person\"")
+public class Person implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_user")
-	private Long idUser;
+	@Column(name = "id_person", updatable = false, nullable = false)
+	private Long idPerson;
 	@Column(nullable = false, length = 100)
 	private String email;
 	@Column(nullable = false)
-	private char[] password;
+	private char[] pwd;
 	@Column(nullable = false, length = 45)
 	private String nickname;
 	@Column(nullable = false, length = 45)
@@ -46,29 +46,29 @@ public class User implements Serializable {
 	private LocalDate birthday;
 	@Column(nullable = true)
 	private Integer age;
-	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Meeting.class, mappedBy = "users")
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Meeting.class, mappedBy = "persons")
 	private Set<Meeting> meetings = new HashSet<>();
-	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Role.class, mappedBy = "users")
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Role.class, mappedBy = "persons")
 	private Set<Role> roles = new HashSet<>();
 	@ManyToOne
 	@JoinColumn(name = "id_address")
 	private Address address;
-	@OneToMany(targetEntity = Contact.class, mappedBy = "user")
+	@OneToMany(targetEntity = Contact.class, mappedBy = "person")
 	private Set<Contact> contacts = new HashSet<>();
-	@OneToMany(targetEntity = Relationship.class, mappedBy = "user1")
-	private Set<User> users1 = new HashSet<>();
-	@OneToMany(targetEntity = Relationship.class, mappedBy = "user2")
-	private Set<User> users2 = new HashSet<>();
+	@OneToMany(targetEntity = Relationship.class, mappedBy = "person1")
+	private Set<Person> persons1 = new HashSet<>();
+	@OneToMany(targetEntity = Relationship.class, mappedBy = "person2")
+	private Set<Person> persons2 = new HashSet<>();
 
-	public User() {
+	public Person() {
 	}
 
-	public Long getIdUser() {
-		return idUser;
+	public Long getIdPerson() {
+		return idPerson;
 	}
 
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
+	public void setIdPerson(Long idPerson) {
+		this.idPerson = idPerson;
 	}
 
 	public String getEmail() {
@@ -79,12 +79,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public char[] getPassword() {
-		return password;
+	public char[] getPwd() {
+		return pwd;
 	}
 
-	public void setPassword(char[] password) {
-		this.password = password;
+	public void setPwd(char[] pwd) {
+		this.pwd = pwd;
 	}
 
 	public String getNickname() {
@@ -132,7 +132,7 @@ public class User implements Serializable {
 	}
 
 	public void setMeetings(Set<Meeting> meetings) {
-		this.meetings = meetings;
+		this.meetings = new HashSet<>(meetings);
 	}
 
 	public void addMeeting(Meeting meeting) {
@@ -144,7 +144,7 @@ public class User implements Serializable {
 	}
 
 	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+		this.roles = new HashSet<>(roles);
 	}
 
 	public void addRole(Role role) {
@@ -164,55 +164,38 @@ public class User implements Serializable {
 	}
 
 	public void setContacts(Set<Contact> contacts) {
-		this.contacts = contacts;
+		this.contacts = new HashSet<>(contacts);
 	}
 
 	public void addContact(Contact contact) {
 		this.contacts.add(contact);
 	}
 
-	public Set<User> getUsers1() {
-		return Collections.unmodifiableSet(users1);
+	public Set<Person> getPersons1() {
+		return Collections.unmodifiableSet(persons1);
 	}
 
-	public void setUsers1(Set<User> users1) {
-		this.users1 = users1;
+	public void setPersons1(Set<Person> persons1) {
+		this.persons1 = persons1;
 	}
 
-	public Set<User> getUsers2() {
-		return Collections.unmodifiableSet(users2);
+	public Set<Person> getPersons2() {
+		return Collections.unmodifiableSet(persons2);
 	}
 
-	public void setUsers2(Set<User> users2) {
-		this.users2 = users2;
+	public void setPersons2(Set<Person> persons2) {
+		this.persons2 = new HashSet<>(persons2);
 	}
-
-//	@Override
-//	public int hashCode() {
-//		return Objects.hashCode(email);
-//	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (!(obj instanceof User))
-//			return false;
-//		User other = (User) obj;
-//		return Objects.equals(email, other.getEmail());
-//	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("User [idUser=");
-		builder.append(idUser);
+		builder.append("Person [idPerson=");
+		builder.append(idPerson);
 		builder.append(", email=");
 		builder.append(email);
-		builder.append(", password=");
-		builder.append(Arrays.toString(password));
+		builder.append(", pwd=");
+		builder.append(Arrays.toString(pwd));
 		builder.append(", nickname=");
 		builder.append(nickname);
 		builder.append(", firstName=");
@@ -231,10 +214,10 @@ public class User implements Serializable {
 		builder.append(address);
 		builder.append(", contacts=");
 		builder.append(contacts);
-		builder.append(", users1=");
-		builder.append(users1);
-		builder.append(", users2=");
-		builder.append(users2);
+		builder.append(", persons1=");
+		builder.append(persons1);
+		builder.append(", persons2=");
+		builder.append(persons2);
 		builder.append("]");
 		return builder.toString();
 	}

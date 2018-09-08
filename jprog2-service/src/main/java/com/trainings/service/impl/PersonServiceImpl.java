@@ -9,10 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.querydsl.core.types.Predicate;
-import com.trainings.jpa.model.User;
-import com.trainings.jpa.repository.UserRepository;
+import com.trainings.jpa.model.Person;
+import com.trainings.jpa.repository.PersonRepository;
 import com.trainings.service.exceptions.ServiceLayerException;
-import com.trainings.service.iface.UserService;
+import com.trainings.service.iface.PersonService;
 
 /**
  * 
@@ -20,55 +20,55 @@ import com.trainings.service.iface.UserService;
  *
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class PersonServiceImpl implements PersonService {
 
-	private UserRepository userRepository;
+	private PersonRepository personRepository;
 
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	public PersonServiceImpl(PersonRepository personRepository) {
+		this.personRepository = personRepository;
 	}
 
 	@Override
-	public Optional<User> findById(Long id) {
+	public Optional<Person> findById(Long id) {
 		try {
-			return userRepository.findById(id);
+			return personRepository.findById(id);
 		} catch (HibernateException ex) {
 			throw new ServiceLayerException(ex);
 		}
 	}
 
 	@Override
-	public Page<User> findAll(Predicate predicate, Pageable pageable) {
+	public Page<Person> findAll(Predicate predicate, Pageable pageable) {
 		try {
-			return userRepository.findAll(predicate, pageable);
+			return personRepository.findAll(predicate, pageable);
 		} catch (HibernateException ex) {
 			throw new ServiceLayerException(ex);
 		}
 	}
 
 	@Override
-	public void create(User user) {
+	public void create(Person person) {
 		try {
-			userRepository.save(user);
+			personRepository.save(person);
 		} catch (HibernateException ex) {
 			throw new ServiceLayerException(ex);
 		}
 	}
 
 	@Override
-	public void update(User user) {
+	public void update(Person person) {
 		try {
-			userRepository.save(user);
+			personRepository.save(person);
 		} catch (HibernateException ex) {
 			throw new ServiceLayerException(ex);
 		}
 	}
 
 	@Override
-	public void delete(User user) {
+	public void delete(Person person) {
 		try {
-			userRepository.delete(user);
+			personRepository.delete(person);
 		} catch (HibernateException ex) {
 			throw new ServiceLayerException(ex);
 		}
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(Long id) {
 		try {
-			userRepository.deleteById(id);
+			personRepository.deleteById(id);
 		} catch (HibernateException ex) {
 			throw new ServiceLayerException(ex);
 		}

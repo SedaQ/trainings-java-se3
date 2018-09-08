@@ -29,4 +29,15 @@ public class RelationshipTypeDTO {
 		this.title = title;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("RelationshipTypeDTO [idRelationshipType=");
+		builder.append(idRelationshipType);
+		builder.append(", title=");
+		builder.append(title);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

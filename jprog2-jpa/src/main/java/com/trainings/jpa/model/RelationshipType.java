@@ -24,7 +24,7 @@ public class RelationshipType implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_relationship_type")
+	@Column(name = "id_relationship_type", updatable = false, nullable = false)
 	private Long idRelationshipType;
 	@Column(nullable = false, unique = true)
 	private String title;
@@ -55,7 +55,7 @@ public class RelationshipType implements Serializable {
 	}
 
 	public void setRelationships(Set<Relationship> relationships) {
-		this.relationships = relationships;
+		this.relationships = new HashSet<>(relationships);
 	}
 
 	@Override

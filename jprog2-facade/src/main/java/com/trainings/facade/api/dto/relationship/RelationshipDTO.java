@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
  * @author Pavel Šeda
  *
  */
-@JacksonXmlRootElement(localName="relationship")
+@JacksonXmlRootElement(localName = "relationship")
 public class RelationshipDTO {
 
 	private Long idRelationship;
@@ -30,6 +30,17 @@ public class RelationshipDTO {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("RelationshipDTO [idRelationship=");
+		builder.append(idRelationship);
+		builder.append(", note=");
+		builder.append(note);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

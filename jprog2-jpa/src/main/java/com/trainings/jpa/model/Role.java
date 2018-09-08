@@ -27,17 +27,14 @@ public class Role implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_role")
+	@Column(name = "id_role", updatable = false, nullable = false)
 	private Long idRole;
 	@Column(nullable = false)
 	private String title;
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-		name = "role_has_user", 
-		joinColumns = { @JoinColumn(name = "id_role") }, 
-		inverseJoinColumns = { @JoinColumn(name = "id_user") }
-	)
-	private Set<User> users = new HashSet<>();
+	@JoinTable(name = "person_has_role", joinColumns = { @JoinColumn(name = "id_role") }, inverseJoinColumns = {
+			@JoinColumn(name = "id_person") })
+	private Set<Person> persons = new HashSet<>();
 
 	public Role() {
 	}
@@ -58,16 +55,16 @@ public class Role implements Serializable {
 		this.title = title;
 	}
 
-	public Set<User> getUsers() {
-		return Collections.unmodifiableSet(users);
+	public Set<Person> getUsers() {
+		return Collections.unmodifiableSet(persons);
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUsers(Set<Person> persons) {
+		this.persons = new HashSet<>(persons);
 	}
 
-	public void addUser(User user) {
-		this.users.add(user);
+	public void addUser(Person person) {
+		this.persons.add(person);
 	}
 
 	@Override
@@ -77,8 +74,8 @@ public class Role implements Serializable {
 		builder.append(idRole);
 		builder.append(", title=");
 		builder.append(title);
-		builder.append(", users=");
-		builder.append(users);
+		builder.append(", persons=");
+		builder.append(persons);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -2,7 +2,7 @@ package com.trainings.facade.api.dto.relationship;
 
 import javax.validation.constraints.NotNull;
 
-import com.trainings.facade.api.dto.user.UserDTO;
+import com.trainings.facade.api.dto.person.PersonDTO;
 
 /**
  * 
@@ -15,9 +15,9 @@ public class RelationshipCreateDTO {
 	@NotNull
 	private RelationshipTypeDTO relationshipType;
 	@NotNull
-	private UserDTO user1;
+	private PersonDTO person1;
 	@NotNull
-	private UserDTO user2;
+	private PersonDTO person2;
 
 	public RelationshipCreateDTO() {
 	}
@@ -38,20 +38,35 @@ public class RelationshipCreateDTO {
 		this.relationshipType = relationshipType;
 	}
 
-	public UserDTO getUser1() {
-		return user1;
+	public PersonDTO getPerson1() {
+		return person1;
 	}
 
-	public void setUser1(UserDTO user1) {
-		this.user1 = user1;
+	public void setPerson1(PersonDTO person1) {
+		this.person1 = person1;
 	}
 
-	public UserDTO getUser2() {
-		return user2;
+	public PersonDTO getPerson2() {
+		return person2;
 	}
 
-	public void setUser2(UserDTO user2) {
-		this.user2 = user2;
+	public void setPerson2(PersonDTO person2) {
+		this.person2 = person2;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("RelationshipCreateDTO [note=");
+		builder.append(note);
+		builder.append(", relationshipType=");
+		builder.append(relationshipType);
+		builder.append(", person1=");
+		builder.append(person1);
+		builder.append(", person2=");
+		builder.append(person2);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

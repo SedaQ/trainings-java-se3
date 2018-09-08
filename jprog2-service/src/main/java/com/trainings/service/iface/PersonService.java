@@ -6,24 +6,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.querydsl.core.types.Predicate;
-import com.trainings.jpa.model.User;
+import com.trainings.jpa.model.Person;
 
 /**
  * 
  * @author Pavel Šeda
  *
  */
-public interface UserService {
+public interface PersonService {
 
-	Optional<User> findById(Long id);
+	Optional<Person> findById(Long id);
 
-	Page<User> findAll(Predicate predicate, Pageable pageable);
+	Page<Person> findAll(Predicate predicate, Pageable pageable);
 
-	void create(User user);
+	void create(Person person);
 
-	void update(User user);
+	void update(Person person);
 
-	void delete(User delete);
+	void delete(Person delete);
 
 	void delete(Long id);
 

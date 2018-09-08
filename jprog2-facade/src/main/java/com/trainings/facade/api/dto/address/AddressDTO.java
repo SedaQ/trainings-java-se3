@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
  * @author Pavel Šeda
  *
  */
-@JacksonXmlRootElement(localName="address")
+@JacksonXmlRootElement(localName = "address")
 public class AddressDTO {
 
 	private Long idAddress;
@@ -43,7 +43,7 @@ public class AddressDTO {
 		this.street = street;
 	}
 
-	public Integer getHouseNumber() {
+	public int getHouseNumber() {
 		return houseNumber;
 	}
 
@@ -57,6 +57,23 @@ public class AddressDTO {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("AddressDTO [idAddress=");
+		builder.append(idAddress);
+		builder.append(", city=");
+		builder.append(city);
+		builder.append(", street=");
+		builder.append(street);
+		builder.append(", houseNumber=");
+		builder.append(houseNumber);
+		builder.append(", zipCode=");
+		builder.append(zipCode);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

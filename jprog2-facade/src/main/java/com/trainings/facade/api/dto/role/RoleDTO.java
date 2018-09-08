@@ -4,19 +4,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.trainings.facade.api.dto.user.RoleUsersDTO;
+import com.trainings.facade.api.dto.person.RolePersonsDTO;
 
 /**
  * 
  * @author Pavel Šeda
  *
  */
-@JacksonXmlRootElement(localName="role")
+@JacksonXmlRootElement(localName = "role")
 public class RoleDTO {
 
 	private Long idRole;
 	private String title;
-	private Set<RoleUsersDTO> users = new HashSet<>();
+	private Set<RolePersonsDTO> persons = new HashSet<>();
 
 	public RoleDTO() {
 	}
@@ -37,12 +37,25 @@ public class RoleDTO {
 		this.title = title;
 	}
 
-	public Set<RoleUsersDTO> getUsers() {
-		return users;
+	public Set<RolePersonsDTO> getPersons() {
+		return persons;
 	}
 
-	public void setUsers(Set<RoleUsersDTO> users) {
-		this.users = users;
+	public void setPersons(Set<RolePersonsDTO> persons) {
+		this.persons = new HashSet<>(persons);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("RoleDTO [idRole=");
+		builder.append(idRole);
+		builder.append(", title=");
+		builder.append(title);
+		builder.append(", persons=");
+		builder.append(persons);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

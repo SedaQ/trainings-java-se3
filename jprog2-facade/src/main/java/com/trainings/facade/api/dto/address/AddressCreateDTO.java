@@ -54,4 +54,19 @@ public class AddressCreateDTO {
 		this.zipCode = zipCode;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("AddressCreateDTO [city=");
+		builder.append(city);
+		builder.append(", street=");
+		builder.append(street);
+		builder.append(", houseNumber=");
+		builder.append(houseNumber);
+		builder.append(", zipCode=");
+		builder.append(zipCode);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

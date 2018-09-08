@@ -1,7 +1,8 @@
-package com.trainings.facade.api.dto.user;
+package com.trainings.facade.api.dto.person;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -11,27 +12,35 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
  * @author Pavel Šeda
  *
  */
-public class ContactUserDTO {
+public class RolePersonsDTO {
 
-	private Long idUser;
+	private Long idPerson;
 	private String email;
 	@JsonProperty(access = Access.WRITE_ONLY)
-	private char[] password;
+	private char[] pwd;
 	private String nickname;
 	private String firstName;
 	private String surname;
 	private LocalDate birthday;
 	private Integer age;
 
-	public ContactUserDTO() {
+	public RolePersonsDTO() {
 	}
 
-	public Long getIdUser() {
-		return idUser;
+	public Long getIdPerson() {
+		return idPerson;
 	}
 
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
+	public void setIdPerson(Long idPerson) {
+		this.idPerson = idPerson;
+	}
+
+	public char[] getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(char[] pwd) {
+		this.pwd = pwd;
 	}
 
 	public String getEmail() {
@@ -40,14 +49,6 @@ public class ContactUserDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public char[] getPassword() {
-		return password;
-	}
-
-	public void setPassword(char[] password) {
-		this.password = password;
 	}
 
 	public String getNickname() {
@@ -91,14 +92,31 @@ public class ContactUserDTO {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(email);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof PersonDTO))
+			return false;
+		PersonDTO other = (PersonDTO) obj;
+		return Objects.equals(email, other.getEmail());
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ContactUserDTO [idUser=");
-		builder.append(idUser);
+		builder.append("RolePersonsDTO [idPerson=");
+		builder.append(idPerson);
 		builder.append(", email=");
 		builder.append(email);
-		builder.append(", password=");
-		builder.append(Arrays.toString(password));
+		builder.append(", pwd=");
+		builder.append(Arrays.toString(pwd));
 		builder.append(", nickname=");
 		builder.append(nickname);
 		builder.append(", firstName=");

@@ -1,47 +1,37 @@
-package com.trainings.facade.api.dto.user;
+package com.trainings.facade.api.dto.person;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.trainings.facade.api.dto.meeting.UserMeetingsDTO;
 
 /**
  * 
  * @author Pavel Šeda
  *
  */
-@JacksonXmlRootElement(localName = "user")
-@XmlRootElement(name = "user")
-public class UserDTO {
+public class ContactPersonDTO {
 
-	private Long idUser;
+	private Long idPerson;
 	private String email;
 	@JsonProperty(access = Access.WRITE_ONLY)
-	private char[] password;
+	private char[] pwd;
 	private String nickname;
 	private String firstName;
 	private String surname;
 	private LocalDate birthday;
 	private Integer age;
-	private Set<UserMeetingsDTO> meetings = new HashSet<>();
 
-	public UserDTO() {
+	public ContactPersonDTO() {
 	}
 
-	public Long getIdUser() {
-		return idUser;
+	public Long getIdPerson() {
+		return idPerson;
 	}
 
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
+	public void setIdPerson(Long idPerson) {
+		this.idPerson = idPerson;
 	}
 
 	public String getEmail() {
@@ -52,12 +42,12 @@ public class UserDTO {
 		this.email = email;
 	}
 
-	public char[] getPassword() {
-		return password;
+	public char[] getPwd() {
+		return pwd;
 	}
 
-	public void setPassword(char[] password) {
-		this.password = password;
+	public void setPwd(char[] pwd) {
+		this.pwd = pwd;
 	}
 
 	public String getNickname() {
@@ -100,40 +90,15 @@ public class UserDTO {
 		this.age = age;
 	}
 
-	public Set<UserMeetingsDTO> getMeetings() {
-		return meetings;
-	}
-
-	public void setMeetings(Set<UserMeetingsDTO> meetings) {
-		this.meetings = meetings;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(email);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof UserDTO))
-			return false;
-		UserDTO other = (UserDTO) obj;
-		return Objects.equals(email, other.getEmail());
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("UserDTO [idUser=");
-		builder.append(idUser);
+		builder.append("ContactUserDTO [idPerson=");
+		builder.append(idPerson);
 		builder.append(", email=");
 		builder.append(email);
 		builder.append(", password=");
-		builder.append(Arrays.toString(password));
+		builder.append(Arrays.toString(pwd));
 		builder.append(", nickname=");
 		builder.append(nickname);
 		builder.append(", firstName=");

@@ -2,36 +2,21 @@ package com.trainings.facade.api.dto.meeting;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.trainings.facade.api.dto.person.MeetingPersonsDTO;
 
 /**
  * 
  * @author Pavel Šeda
  *
  */
-@JacksonXmlRootElement(localName = "meeting")
-public class MeetingDTO {
+public class PersonMeetingsDTO {
 
 	private Long idMeeting;
 	private LocalDateTime startTime;
 	private Duration duration;
 	private String place;
 	private String note;
-	private Set<MeetingPersonsDTO> persons = new HashSet<>();
 
-	public MeetingDTO(Long idMeeting, LocalDateTime startTime, Duration duration, String place, String note,
-			Set<MeetingPersonsDTO> persons) {
-		super();
-		this.idMeeting = idMeeting;
-		this.startTime = startTime;
-		this.duration = duration;
-		this.place = place;
-		this.note = note;
-		this.persons = persons;
+	public PersonMeetingsDTO() {
 	}
 
 	public Long getIdMeeting() {
@@ -50,14 +35,6 @@ public class MeetingDTO {
 		this.startTime = startTime;
 	}
 
-	public Duration getDuration() {
-		return duration;
-	}
-
-	public void setDuration(Duration duration) {
-		this.duration = duration;
-	}
-
 	public String getPlace() {
 		return place;
 	}
@@ -74,18 +51,18 @@ public class MeetingDTO {
 		this.note = note;
 	}
 
-	public Set<MeetingPersonsDTO> getPersons() {
-		return persons;
+	public Duration getDuration() {
+		return duration;
 	}
 
-	public void setPersons(Set<MeetingPersonsDTO> persons) {
-		this.persons = new HashSet<>(persons);
+	public void setDuration(Duration duration) {
+		this.duration = duration;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("MeetingDTO [idMeeting=");
+		builder.append("PersonMeetingsDTO [idMeeting=");
 		builder.append(idMeeting);
 		builder.append(", startTime=");
 		builder.append(startTime);
@@ -95,8 +72,6 @@ public class MeetingDTO {
 		builder.append(place);
 		builder.append(", note=");
 		builder.append(note);
-		builder.append(", persons=");
-		builder.append(persons);
 		builder.append("]");
 		return builder.toString();
 	}

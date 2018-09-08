@@ -1,19 +1,19 @@
 package com.trainings.facade.api.dto.contact;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.trainings.facade.api.dto.user.ContactUserDTO;
+import com.trainings.facade.api.dto.person.ContactPersonDTO;
 
 /**
  * 
  * @author Pavel Šeda
  *
  */
-@JacksonXmlRootElement(localName="contact")
+@JacksonXmlRootElement(localName = "contact")
 public class ContactDTO {
 
 	private Long idContact;
 	private String contact;
-	private ContactUserDTO contactUserDTO;
+	private ContactPersonDTO contactPersonDTO;
 
 	public ContactDTO() {
 	}
@@ -34,12 +34,25 @@ public class ContactDTO {
 		this.contact = contact;
 	}
 
-	public ContactUserDTO getContactUserDTO() {
-		return contactUserDTO;
+	public ContactPersonDTO getContactPersonDTO() {
+		return contactPersonDTO;
 	}
 
-	public void setContactUserDTO(ContactUserDTO contactUserDTO) {
-		this.contactUserDTO = contactUserDTO;
+	public void setContactUserDTO(ContactPersonDTO contactPersonDTO) {
+		this.contactPersonDTO = contactPersonDTO;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ContactDTO [idContact=");
+		builder.append(idContact);
+		builder.append(", contact=");
+		builder.append(contact);
+		builder.append(", contactPersonDTO=");
+		builder.append(contactPersonDTO);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

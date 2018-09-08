@@ -3,16 +3,11 @@ package com.trainings.rest.config;
 import java.util.Arrays;
 import java.util.Locale;
 
-import javax.validation.Validator;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 /**
  * 
@@ -41,7 +36,7 @@ public class ValidationMessagesConfig {
 	}
 
 	/**
-	 * Prints available locales. It is usefull to set up appropriate
+	 * Prints available locales. It is useful to set up appropriate
 	 * messages.properties file name, e.g. messages_en_US.properties
 	 * 
 	 * en_US
@@ -56,19 +51,5 @@ public class ValidationMessagesConfig {
 			System.out.println(l.toString());
 		}
 	}
-
-	/*
-	 * @Bean public LocaleResolver localeResolver() { SessionLocaleResolver slr =
-	 * new SessionLocaleResolver(); slr.setDefaultLocale(Locale.US); return slr; }
-	 */
-
-	/*
-	 * @Bean public LocaleChangeInterceptor localeChangeInterceptor() {
-	 * LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-	 * lci.setParamName("lang"); return lci; }
-	 * 
-	 * @Override public void addInterceptors(InterceptorRegistry registry) {
-	 * registry.addInterceptor(localeChangeInterceptor());
-	 */
 
 }

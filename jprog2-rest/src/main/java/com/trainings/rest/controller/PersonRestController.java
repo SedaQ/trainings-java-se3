@@ -20,10 +20,10 @@ import com.github.bohnman.squiggly.Squiggly;
 import com.github.bohnman.squiggly.util.SquigglyUtils;
 import com.querydsl.core.types.Predicate;
 import com.trainings.facade.api.PageResultResource;
-import com.trainings.facade.api.dto.user.UserDTO;
+import com.trainings.facade.api.dto.person.PersonDTO;
 import com.trainings.facade.exceptions.FacadeLayerException;
-import com.trainings.facade.iface.UserFacade;
-import com.trainings.jpa.model.User;
+import com.trainings.facade.iface.PersonFacade;
+import com.trainings.jpa.model.Person;
 import com.trainings.rest.exceptions.ResourceNotFoundException;
 import com.trainings.rest.utils.HttpHeadersAcceptAndContentType;
 
@@ -40,7 +40,7 @@ import io.swagger.annotations.AuthorizationScope;
  *
  */
 //@formatter:off
-@Api(value = "/users", 
+@Api(value = "/persons", 
   consumes = "application/json or application/xml", 
   authorizations = {
     @Authorization(value = "sampleoauth", 
@@ -55,15 +55,15 @@ import io.swagger.annotations.AuthorizationScope;
 )
 //@formatter:on
 @RestController
-@RequestMapping(value = "/users")
-public class UserRestController {
+@RequestMapping(value = "/persons")
+public class PersonRestController {
 
-	  private UserFacade userFacade;
+	  private PersonFacade personFacade;
 	  private ObjectMapper objectMapper;
 
 	  @Autowired
-	  public UserRestController(UserFacade userFacade, ObjectMapper objectMapper) {
-	    this.userFacade = userFacade;
+	  public PersonRestController(PersonFacade personFacade, ObjectMapper objectMapper) {
+	    this.personFacade = personFacade;
 	    this.objectMapper = objectMapper;
 	  }
 
@@ -75,16 +75,16 @@ public class UserRestController {
 	   */
 	  //@formatter:off
 	  @ApiOperation(httpMethod = "GET", 
-	      value = "Get User by Id.", 
-	      response = UserDTO.class,
-	      nickname = "findUserById",
+	      value = "Get Person by Id.", 
+	      response = PersonDTO.class,
+	      nickname = "findPersonById",
 	      produces = "application/json or application/xml",
 	      authorizations = {
 	          @Authorization(value = "sampleoauth", 
 	              scopes = {
 	                  @AuthorizationScope(
-	                      scope = "find User by ID", 
-	                      description = "allows returning User by ID."
+	                      scope = "find Person by ID", 
+	                      description = "allows returning Person by ID."
 	                  )
 	              }
 	          )
@@ -94,12 +94,12 @@ public class UserRestController {
 	      @ApiResponse(code = 404, message = "The requested resource was not found.") 
 	  })
 	  @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	  public ResponseEntity<Object> findUserById(@ApiParam(name = "User Id") @PathVariable Long id,
+	  public ResponseEntity<Object> findPersonById(@ApiParam(name = "Person Id") @PathVariable Long id,
 	      @ApiParam(value = "Fields which should be returned in REST API response", required = false) 
 	      @RequestParam(value = "fields", required = false) String fields,
 	      @RequestHeader HttpHeaders headers) {
 	    try {
-	      UserDTO userResource = userFacade.findById(id);
+	      PersonDTO userResource = personFacade.findById(id);
 	      if(HttpHeadersAcceptAndContentType.isJson(headers)) {
 		      Squiggly.init(objectMapper, fields);
 		      return new ResponseEntity<>(SquigglyUtils.stringify(objectMapper, userResource), HttpStatus.OK);
@@ -112,12 +112,12 @@ public class UserRestController {
 	  }
 	  //@formatter:on
 
-	  public ResponseEntity<Object> findUserAddress(@ApiParam(name = "User Id") @PathVariable Long id,
+	  public ResponseEntity<Object> findUserAddress(@ApiParam(name = "Person Id") @PathVariable Long id,
 		      @ApiParam(value = "Fields which should be returned in REST API response", required = false) 
 		      @RequestParam(value = "fields", required = false) String fields,
 		      @RequestHeader HttpHeaders headers){
 	    try {
-	      UserDTO userResource = userFacade.findById(id);
+	      PersonDTO userResource = personFacade.findById(id);
 	      if(HttpHeadersAcceptAndContentType.isXML(headers)) {
 	    	  return new ResponseEntity<>(userResource, HttpStatus.OK);
 	      } else {
@@ -137,17 +137,17 @@ public class UserRestController {
 	   */
 	  //@formatter:off
 	  @ApiOperation(httpMethod = "GET",
-	      value = "Get All Users.",
-	      response = UserDTO.class,
+	      value = "Get All Persons.",
+	      response = PersonDTO.class,
 	      responseContainer = "Page",
-	      nickname = "findAllUsers",
+	      nickname = "findAllPersons",
 	      produces = "application/json or application/xml",
 	      authorizations = {
 	          @Authorization(value = "sampleoauth", 
 	              scopes = {
 	                  @AuthorizationScope(
-	                      scope = "find all Users", 
-	                      description = "allows returning Users."
+	                      scope = "find all Persons", 
+	                      description = "allows returning Persons."
 	                  )
 	              }
 	          )
@@ -157,13 +157,13 @@ public class UserRestController {
 	      @ApiResponse(code = 404, message = "The requested resource was not found.") 
 	  })
 	  @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	  public ResponseEntity<Object> findAllUsers(@QuerydslPredicate(root = User.class) Predicate predicate, Pageable pageable,
+	  public ResponseEntity<Object> findAllPersons(@QuerydslPredicate(root = Person.class) Predicate predicate, Pageable pageable,
 	      @RequestParam MultiValueMap<String, String> parameters, 
 	      @ApiParam(value = "Fields which should be returned in REST API response", required = false) 
 	      @RequestParam(value = "fields", required = false) String fields,
 	      @RequestHeader HttpHeaders headers) {
 	    try {
-	      PageResultResource<UserDTO> userResource = userFacade.findAll(predicate, pageable);
+	      PageResultResource<PersonDTO> userResource = personFacade.findAll(predicate, pageable);
 	      if(HttpHeadersAcceptAndContentType.isJson(headers)) {
 		      Squiggly.init(objectMapper, fields);
 		      return new ResponseEntity<>(SquigglyUtils.stringify(objectMapper, userResource), HttpStatus.OK);

@@ -22,13 +22,13 @@ public class Contact implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_contact")
+	@Column(name = "id_contact", updatable = false, nullable = false)
 	private Long idContact;
 	@Column(nullable = false, length = 45)
 	private String contact;
 	@ManyToOne
-	@JoinColumn(name = "id_user")
-	private User user;
+	@JoinColumn(name = "id_person")
+	private Person person;
 	@ManyToOne
 	@JoinColumn(name = "id_contact_type")
 	private ContactType contactType;
@@ -52,12 +52,12 @@ public class Contact implements Serializable {
 		this.contact = contact;
 	}
 
-	public User getUser() {
-		return user;
+	public Person getPerson() {
+		return person;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	public ContactType getContactType() {
@@ -75,8 +75,8 @@ public class Contact implements Serializable {
 		builder.append(idContact);
 		builder.append(", contact=");
 		builder.append(contact);
-		builder.append(", user=");
-		builder.append(user);
+		builder.append(", person=");
+		builder.append(person);
 		builder.append(", contactType=");
 		builder.append(contactType);
 		builder.append("]");

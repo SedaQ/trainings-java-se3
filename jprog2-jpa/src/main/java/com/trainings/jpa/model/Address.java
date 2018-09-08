@@ -25,7 +25,7 @@ public class Address implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_address")
+	@Column(name = "id_address", updatable = false, nullable = false)
 	private Long idAddress;
 	@Column(nullable = false, length = 45)
 	private String city;
@@ -35,8 +35,8 @@ public class Address implements Serializable {
 	private Integer houseNumber;
 	@Column(name = "zip_code", nullable = true, length = 45)
 	private String zipCode;
-	@OneToMany(targetEntity = User.class, mappedBy = "address")
-	private Set<User> users = new HashSet<>();
+	@OneToMany(targetEntity = Person.class, mappedBy = "address")
+	private Set<Person> persons = new HashSet<>();
 
 	public Address() {
 	}
@@ -81,17 +81,17 @@ public class Address implements Serializable {
 		this.zipCode = zipCode;
 	}
 
-	public Set<User> getUsers() {
-		return Collections.unmodifiableSet(users);
+	public Set<Person> getPersons() {
+		return Collections.unmodifiableSet(persons);
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setPersons(Set<Person> persons) {
+		this.persons = persons;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(city, houseNumber, street, users);
+		return Objects.hash(city, houseNumber, street, persons);
 	}
 
 	@Override
@@ -103,8 +103,8 @@ public class Address implements Serializable {
 		if (!(obj instanceof Address))
 			return false;
 		Address other = (Address) obj;
-		return Objects.equals(city, other.getCity()) && Objects.equals(houseNumber, other.getHouseNumber())
-				&& Objects.equals(street, other.getStreet()) && Objects.equals(users, other.getUsers());
+		return Objects.equals(city, other.getCity()) && houseNumber == other.getHouseNumber()
+				&& Objects.equals(street, other.getStreet()) && Objects.equals(persons, other.getPersons());
 	}
 
 	@Override
@@ -120,8 +120,8 @@ public class Address implements Serializable {
 		builder.append(houseNumber);
 		builder.append(", zipCode=");
 		builder.append(zipCode);
-		builder.append(", users=");
-		builder.append(users);
+		builder.append(", persons=");
+		builder.append(persons);
 		builder.append("]");
 		return builder.toString();
 	}

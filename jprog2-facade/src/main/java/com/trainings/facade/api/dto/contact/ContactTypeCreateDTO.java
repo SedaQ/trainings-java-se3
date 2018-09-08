@@ -20,4 +20,13 @@ public class ContactTypeCreateDTO {
 		this.title = title;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ContactTypeCreateDTO [title=");
+		builder.append(title);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

@@ -29,4 +29,15 @@ public class ContactTypeDTO {
 		this.title = title;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ContactTypeDTO [idContactType=");
+		builder.append(idContactType);
+		builder.append(", title=");
+		builder.append(title);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }
