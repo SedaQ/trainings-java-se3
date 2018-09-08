@@ -38,11 +38,17 @@ $ mvn flyway:migrate -Djdbc.url=jdbc:postgresql://localhost:5432/jprog2 -Djdbc.u
 
 NOTE: This script must be run in [jprog2-jpa] (https://github.com/SedaQ/trainings-java-se3/tree/master/jprog2-jpa) module.
 
-## Installing project
-Installing by maven:
+## Startin up Project
+Installing project by maven (run in root directory):
 
 ```
 $ mvn clean install
+```
+
+Running war projects (REST, SOAP) from cmd.
+
+```
+$ mvn spring-boot:run
 ```
 
 ## Used Technologies
