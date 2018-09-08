@@ -5,7 +5,7 @@
 -- Dumped from database version 10.4
 -- Dumped by pg_dump version 10.4
 
--- Started on 2018-09-08 14:21:33
+-- Started on 2018-09-08 20:55:31
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -22,7 +22,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 197 (class 1259 OID 16390)
+-- TOC entry 197 (class 1259 OID 17608)
 -- Name: address; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -38,7 +38,7 @@ CREATE TABLE public.address (
 ALTER TABLE public.address OWNER TO postgres;
 
 --
--- TOC entry 196 (class 1259 OID 16388)
+-- TOC entry 196 (class 1259 OID 17606)
 -- Name: address_id_address_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -53,7 +53,7 @@ CREATE SEQUENCE public.address_id_address_seq
 ALTER TABLE public.address_id_address_seq OWNER TO postgres;
 
 --
--- TOC entry 2245 (class 0 OID 0)
+-- TOC entry 2244 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: address_id_address_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -62,7 +62,7 @@ ALTER SEQUENCE public.address_id_address_seq OWNED BY public.address.id_address;
 
 
 --
--- TOC entry 199 (class 1259 OID 16398)
+-- TOC entry 199 (class 1259 OID 17616)
 -- Name: contact; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -70,14 +70,14 @@ CREATE TABLE public.contact (
     id_contact bigint NOT NULL,
     contact character varying(45) NOT NULL,
     id_contact_type bigint,
-    id_user bigint
+    id_person bigint
 );
 
 
 ALTER TABLE public.contact OWNER TO postgres;
 
 --
--- TOC entry 198 (class 1259 OID 16396)
+-- TOC entry 198 (class 1259 OID 17614)
 -- Name: contact_id_contact_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -92,7 +92,7 @@ CREATE SEQUENCE public.contact_id_contact_seq
 ALTER TABLE public.contact_id_contact_seq OWNER TO postgres;
 
 --
--- TOC entry 2246 (class 0 OID 0)
+-- TOC entry 2245 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: contact_id_contact_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -101,7 +101,7 @@ ALTER SEQUENCE public.contact_id_contact_seq OWNED BY public.contact.id_contact;
 
 
 --
--- TOC entry 201 (class 1259 OID 16406)
+-- TOC entry 201 (class 1259 OID 17624)
 -- Name: contact_type; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -114,7 +114,7 @@ CREATE TABLE public.contact_type (
 ALTER TABLE public.contact_type OWNER TO postgres;
 
 --
--- TOC entry 200 (class 1259 OID 16404)
+-- TOC entry 200 (class 1259 OID 17622)
 -- Name: contact_type_id_contact_type_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -129,7 +129,7 @@ CREATE SEQUENCE public.contact_type_id_contact_type_seq
 ALTER TABLE public.contact_type_id_contact_type_seq OWNER TO postgres;
 
 --
--- TOC entry 2247 (class 0 OID 0)
+-- TOC entry 2246 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: contact_type_id_contact_type_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -138,22 +138,23 @@ ALTER SEQUENCE public.contact_type_id_contact_type_seq OWNED BY public.contact_t
 
 
 --
--- TOC entry 203 (class 1259 OID 16414)
+-- TOC entry 203 (class 1259 OID 17632)
 -- Name: meeting; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.meeting (
     id_meeting bigint NOT NULL,
-    meeting_datetime timestamp without time zone NOT NULL,
+    duration bigint NOT NULL,
     note character varying(1000),
-    place character varying(200) NOT NULL
+    place character varying(200) NOT NULL,
+    start_time timestamp without time zone NOT NULL
 );
 
 
 ALTER TABLE public.meeting OWNER TO postgres;
 
 --
--- TOC entry 202 (class 1259 OID 16412)
+-- TOC entry 202 (class 1259 OID 17630)
 -- Name: meeting_id_meeting_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -168,7 +169,7 @@ CREATE SEQUENCE public.meeting_id_meeting_seq
 ALTER TABLE public.meeting_id_meeting_seq OWNER TO postgres;
 
 --
--- TOC entry 2248 (class 0 OID 0)
+-- TOC entry 2247 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: meeting_id_meeting_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -177,23 +178,93 @@ ALTER SEQUENCE public.meeting_id_meeting_seq OWNED BY public.meeting.id_meeting;
 
 
 --
--- TOC entry 205 (class 1259 OID 16425)
+-- TOC entry 205 (class 1259 OID 17643)
+-- Name: person; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person (
+    id_person bigint NOT NULL,
+    age integer,
+    birthday date,
+    email character varying(100) NOT NULL,
+    first_name character varying(45) NOT NULL,
+    nickname character varying(45) NOT NULL,
+    pwd character varying(255) NOT NULL,
+    surname character varying(45) NOT NULL,
+    id_address bigint
+);
+
+
+ALTER TABLE public.person OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 17652)
+-- Name: person_has_meeting; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person_has_meeting (
+    id_person bigint NOT NULL,
+    id_meeting bigint NOT NULL
+);
+
+
+ALTER TABLE public.person_has_meeting OWNER TO postgres;
+
+--
+-- TOC entry 207 (class 1259 OID 17657)
+-- Name: person_has_role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person_has_role (
+    id_role bigint NOT NULL,
+    id_person bigint NOT NULL
+);
+
+
+ALTER TABLE public.person_has_role OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 17641)
+-- Name: person_id_person_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.person_id_person_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.person_id_person_seq OWNER TO postgres;
+
+--
+-- TOC entry 2248 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: person_id_person_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.person_id_person_seq OWNED BY public.person.id_person;
+
+
+--
+-- TOC entry 209 (class 1259 OID 17664)
 -- Name: relationship; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.relationship (
     id_relationship bigint NOT NULL,
     note character varying(200),
-    id_relationship_type bigint,
-    id_user1 bigint,
-    id_user2 bigint
+    id_person1 bigint,
+    id_person2 bigint,
+    id_relationship_type bigint
 );
 
 
 ALTER TABLE public.relationship OWNER TO postgres;
 
 --
--- TOC entry 204 (class 1259 OID 16423)
+-- TOC entry 208 (class 1259 OID 17662)
 -- Name: relationship_id_relationship_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -209,7 +280,7 @@ ALTER TABLE public.relationship_id_relationship_seq OWNER TO postgres;
 
 --
 -- TOC entry 2249 (class 0 OID 0)
--- Dependencies: 204
+-- Dependencies: 208
 -- Name: relationship_id_relationship_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -217,7 +288,7 @@ ALTER SEQUENCE public.relationship_id_relationship_seq OWNED BY public.relations
 
 
 --
--- TOC entry 207 (class 1259 OID 16433)
+-- TOC entry 211 (class 1259 OID 17672)
 -- Name: relationship_type; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -230,7 +301,7 @@ CREATE TABLE public.relationship_type (
 ALTER TABLE public.relationship_type OWNER TO postgres;
 
 --
--- TOC entry 206 (class 1259 OID 16431)
+-- TOC entry 210 (class 1259 OID 17670)
 -- Name: relationship_type_id_relationship_type_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -246,7 +317,7 @@ ALTER TABLE public.relationship_type_id_relationship_type_seq OWNER TO postgres;
 
 --
 -- TOC entry 2250 (class 0 OID 0)
--- Dependencies: 206
+-- Dependencies: 210
 -- Name: relationship_type_id_relationship_type_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -254,7 +325,7 @@ ALTER SEQUENCE public.relationship_type_id_relationship_type_seq OWNED BY public
 
 
 --
--- TOC entry 209 (class 1259 OID 16441)
+-- TOC entry 213 (class 1259 OID 17680)
 -- Name: role; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -267,20 +338,7 @@ CREATE TABLE public.role (
 ALTER TABLE public.role OWNER TO postgres;
 
 --
--- TOC entry 210 (class 1259 OID 16447)
--- Name: role_has_user; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.role_has_user (
-    id_role bigint NOT NULL,
-    id_user bigint NOT NULL
-);
-
-
-ALTER TABLE public.role_has_user OWNER TO postgres;
-
---
--- TOC entry 208 (class 1259 OID 16439)
+-- TOC entry 212 (class 1259 OID 17678)
 -- Name: role_id_role_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -296,7 +354,7 @@ ALTER TABLE public.role_id_role_seq OWNER TO postgres;
 
 --
 -- TOC entry 2251 (class 0 OID 0)
--- Dependencies: 208
+-- Dependencies: 212
 -- Name: role_id_role_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -304,64 +362,7 @@ ALTER SEQUENCE public.role_id_role_seq OWNED BY public.role.id_role;
 
 
 --
--- TOC entry 212 (class 1259 OID 16454)
--- Name: user; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."user" (
-    id_user bigint NOT NULL,
-    age integer,
-    birthday date,
-    email character varying(100) NOT NULL,
-    first_name character varying(45) NOT NULL,
-    nickname character varying(45) NOT NULL,
-    password character varying(255) NOT NULL,
-    surname character varying(45) NOT NULL,
-    id_address bigint
-);
-
-
-ALTER TABLE public."user" OWNER TO postgres;
-
---
--- TOC entry 213 (class 1259 OID 16463)
--- Name: user_has_meeting; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.user_has_meeting (
-    id_user bigint NOT NULL,
-    id_meeting bigint NOT NULL
-);
-
-
-ALTER TABLE public.user_has_meeting OWNER TO postgres;
-
---
--- TOC entry 211 (class 1259 OID 16452)
--- Name: user_id_user_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.user_id_user_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.user_id_user_seq OWNER TO postgres;
-
---
--- TOC entry 2252 (class 0 OID 0)
--- Dependencies: 211
--- Name: user_id_user_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.user_id_user_seq OWNED BY public."user".id_user;
-
-
---
--- TOC entry 2076 (class 2604 OID 16393)
+-- TOC entry 2076 (class 2604 OID 17611)
 -- Name: address id_address; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -369,7 +370,7 @@ ALTER TABLE ONLY public.address ALTER COLUMN id_address SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2077 (class 2604 OID 16401)
+-- TOC entry 2077 (class 2604 OID 17619)
 -- Name: contact id_contact; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -377,7 +378,7 @@ ALTER TABLE ONLY public.contact ALTER COLUMN id_contact SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2078 (class 2604 OID 16409)
+-- TOC entry 2078 (class 2604 OID 17627)
 -- Name: contact_type id_contact_type; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -385,7 +386,7 @@ ALTER TABLE ONLY public.contact_type ALTER COLUMN id_contact_type SET DEFAULT ne
 
 
 --
--- TOC entry 2079 (class 2604 OID 16417)
+-- TOC entry 2079 (class 2604 OID 17635)
 -- Name: meeting id_meeting; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -393,7 +394,15 @@ ALTER TABLE ONLY public.meeting ALTER COLUMN id_meeting SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2080 (class 2604 OID 16428)
+-- TOC entry 2080 (class 2604 OID 17646)
+-- Name: person id_person; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person ALTER COLUMN id_person SET DEFAULT nextval('public.person_id_person_seq'::regclass);
+
+
+--
+-- TOC entry 2081 (class 2604 OID 17667)
 -- Name: relationship id_relationship; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -401,7 +410,7 @@ ALTER TABLE ONLY public.relationship ALTER COLUMN id_relationship SET DEFAULT ne
 
 
 --
--- TOC entry 2081 (class 2604 OID 16436)
+-- TOC entry 2082 (class 2604 OID 17675)
 -- Name: relationship_type id_relationship_type; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -409,7 +418,7 @@ ALTER TABLE ONLY public.relationship_type ALTER COLUMN id_relationship_type SET 
 
 
 --
--- TOC entry 2082 (class 2604 OID 16444)
+-- TOC entry 2083 (class 2604 OID 17683)
 -- Name: role id_role; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -417,15 +426,7 @@ ALTER TABLE ONLY public.role ALTER COLUMN id_role SET DEFAULT nextval('public.ro
 
 
 --
--- TOC entry 2083 (class 2604 OID 16457)
--- Name: user id_user; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."user" ALTER COLUMN id_user SET DEFAULT nextval('public.user_id_user_seq'::regclass);
-
-
---
--- TOC entry 2085 (class 2606 OID 16395)
+-- TOC entry 2085 (class 2606 OID 17613)
 -- Name: address address_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -434,7 +435,7 @@ ALTER TABLE ONLY public.address
 
 
 --
--- TOC entry 2087 (class 2606 OID 16403)
+-- TOC entry 2087 (class 2606 OID 17621)
 -- Name: contact contact_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -443,7 +444,7 @@ ALTER TABLE ONLY public.contact
 
 
 --
--- TOC entry 2089 (class 2606 OID 16411)
+-- TOC entry 2089 (class 2606 OID 17629)
 -- Name: contact_type contact_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -452,7 +453,7 @@ ALTER TABLE ONLY public.contact_type
 
 
 --
--- TOC entry 2093 (class 2606 OID 16422)
+-- TOC entry 2093 (class 2606 OID 17640)
 -- Name: meeting meeting_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -461,7 +462,34 @@ ALTER TABLE ONLY public.meeting
 
 
 --
--- TOC entry 2095 (class 2606 OID 16430)
+-- TOC entry 2097 (class 2606 OID 17656)
+-- Name: person_has_meeting person_has_meeting_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person_has_meeting
+    ADD CONSTRAINT person_has_meeting_pkey PRIMARY KEY (id_person, id_meeting);
+
+
+--
+-- TOC entry 2099 (class 2606 OID 17661)
+-- Name: person_has_role person_has_role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person_has_role
+    ADD CONSTRAINT person_has_role_pkey PRIMARY KEY (id_role, id_person);
+
+
+--
+-- TOC entry 2095 (class 2606 OID 17651)
+-- Name: person person_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person
+    ADD CONSTRAINT person_pkey PRIMARY KEY (id_person);
+
+
+--
+-- TOC entry 2101 (class 2606 OID 17669)
 -- Name: relationship relationship_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -470,7 +498,7 @@ ALTER TABLE ONLY public.relationship
 
 
 --
--- TOC entry 2097 (class 2606 OID 16438)
+-- TOC entry 2103 (class 2606 OID 17677)
 -- Name: relationship_type relationship_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -479,16 +507,7 @@ ALTER TABLE ONLY public.relationship_type
 
 
 --
--- TOC entry 2103 (class 2606 OID 16451)
--- Name: role_has_user role_has_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.role_has_user
-    ADD CONSTRAINT role_has_user_pkey PRIMARY KEY (id_role, id_user);
-
-
---
--- TOC entry 2101 (class 2606 OID 16446)
+-- TOC entry 2107 (class 2606 OID 17685)
 -- Name: role role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -497,7 +516,7 @@ ALTER TABLE ONLY public.role
 
 
 --
--- TOC entry 2091 (class 2606 OID 16469)
+-- TOC entry 2091 (class 2606 OID 17687)
 -- Name: contact_type uk_1fq45jis28gt2u2qt757e04vy; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -506,7 +525,7 @@ ALTER TABLE ONLY public.contact_type
 
 
 --
--- TOC entry 2099 (class 2606 OID 16471)
+-- TOC entry 2105 (class 2606 OID 17689)
 -- Name: relationship_type uk_r42xwql4glcbqp0y3r3mo4tac; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -515,34 +534,7 @@ ALTER TABLE ONLY public.relationship_type
 
 
 --
--- TOC entry 2107 (class 2606 OID 16467)
--- Name: user_has_meeting user_has_meeting_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.user_has_meeting
-    ADD CONSTRAINT user_has_meeting_pkey PRIMARY KEY (id_user, id_meeting);
-
-
---
--- TOC entry 2105 (class 2606 OID 16462)
--- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."user"
-    ADD CONSTRAINT user_pkey PRIMARY KEY (id_user);
-
-
---
--- TOC entry 2114 (class 2606 OID 16502)
--- Name: role_has_user fk1prjjyp0ypvod7oik3kmrg82v; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.role_has_user
-    ADD CONSTRAINT fk1prjjyp0ypvod7oik3kmrg82v FOREIGN KEY (id_role) REFERENCES public.role(id_role);
-
-
---
--- TOC entry 2110 (class 2606 OID 16482)
+-- TOC entry 2117 (class 2606 OID 17735)
 -- Name: relationship fk3b7pcnfgfdblhublf8t8dvn9l; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -551,70 +543,79 @@ ALTER TABLE ONLY public.relationship
 
 
 --
--- TOC entry 2109 (class 2606 OID 16477)
--- Name: contact fk9u1accat4pp2y4oc1c517w9x5; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2111 (class 2606 OID 17705)
+-- Name: person_has_meeting fk6nyhtkxr5sh5ffdcxefbnwfjj; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person_has_meeting
+    ADD CONSTRAINT fk6nyhtkxr5sh5ffdcxefbnwfjj FOREIGN KEY (id_meeting) REFERENCES public.person(id_person);
+
+
+--
+-- TOC entry 2112 (class 2606 OID 17710)
+-- Name: person_has_meeting fk92pqvoxbjila4o02fp18rstq4; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person_has_meeting
+    ADD CONSTRAINT fk92pqvoxbjila4o02fp18rstq4 FOREIGN KEY (id_person) REFERENCES public.meeting(id_meeting);
+
+
+--
+-- TOC entry 2115 (class 2606 OID 17725)
+-- Name: relationship fkahw6wujjfkm21yqfhar09k3fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.relationship
+    ADD CONSTRAINT fkahw6wujjfkm21yqfhar09k3fk FOREIGN KEY (id_person1) REFERENCES public.person(id_person);
+
+
+--
+-- TOC entry 2116 (class 2606 OID 17730)
+-- Name: relationship fkdkyv2jjonl0trwvbsnmw7wugr; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.relationship
+    ADD CONSTRAINT fkdkyv2jjonl0trwvbsnmw7wugr FOREIGN KEY (id_person2) REFERENCES public.person(id_person);
+
+
+--
+-- TOC entry 2114 (class 2606 OID 17720)
+-- Name: person_has_role fkgxshy00b5yme2o2a7ym2y73wa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person_has_role
+    ADD CONSTRAINT fkgxshy00b5yme2o2a7ym2y73wa FOREIGN KEY (id_role) REFERENCES public.role(id_role);
+
+
+--
+-- TOC entry 2113 (class 2606 OID 17715)
+-- Name: person_has_role fksbynkk4p17knaqu83pjc7mx36; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person_has_role
+    ADD CONSTRAINT fksbynkk4p17knaqu83pjc7mx36 FOREIGN KEY (id_person) REFERENCES public.person(id_person);
+
+
+--
+-- TOC entry 2109 (class 2606 OID 17695)
+-- Name: contact fksdofi6j6flua1it19rnx6xcvb; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.contact
-    ADD CONSTRAINT fk9u1accat4pp2y4oc1c517w9x5 FOREIGN KEY (id_user) REFERENCES public."user"(id_user);
+    ADD CONSTRAINT fksdofi6j6flua1it19rnx6xcvb FOREIGN KEY (id_person) REFERENCES public.person(id_person);
 
 
 --
--- TOC entry 2113 (class 2606 OID 16497)
--- Name: role_has_user fkb6kfs1qlass0pypxxo70kryfh; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2110 (class 2606 OID 17700)
+-- Name: person fksukp9r53qgth8ex065xwuw86t; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.role_has_user
-    ADD CONSTRAINT fkb6kfs1qlass0pypxxo70kryfh FOREIGN KEY (id_user) REFERENCES public."user"(id_user);
-
-
---
--- TOC entry 2115 (class 2606 OID 16507)
--- Name: user fke9ip6lgtvlukkgld3d4e89puj; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."user"
-    ADD CONSTRAINT fke9ip6lgtvlukkgld3d4e89puj FOREIGN KEY (id_address) REFERENCES public.address(id_address);
+ALTER TABLE ONLY public.person
+    ADD CONSTRAINT fksukp9r53qgth8ex065xwuw86t FOREIGN KEY (id_address) REFERENCES public.address(id_address);
 
 
 --
--- TOC entry 2116 (class 2606 OID 16512)
--- Name: user_has_meeting fkml9yy10r3vs04q5svigh6xhud; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.user_has_meeting
-    ADD CONSTRAINT fkml9yy10r3vs04q5svigh6xhud FOREIGN KEY (id_meeting) REFERENCES public."user"(id_user);
-
-
---
--- TOC entry 2117 (class 2606 OID 16517)
--- Name: user_has_meeting fkoty72b7w06cg3rjb4twj2bdqx; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.user_has_meeting
-    ADD CONSTRAINT fkoty72b7w06cg3rjb4twj2bdqx FOREIGN KEY (id_user) REFERENCES public.meeting(id_meeting);
-
-
---
--- TOC entry 2111 (class 2606 OID 16487)
--- Name: relationship fkq3kknqkoh2j8dvm20n6g2m1kk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.relationship
-    ADD CONSTRAINT fkq3kknqkoh2j8dvm20n6g2m1kk FOREIGN KEY (id_user1) REFERENCES public."user"(id_user);
-
-
---
--- TOC entry 2112 (class 2606 OID 16492)
--- Name: relationship fksk20i68u5s98osmdrispa9bt2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.relationship
-    ADD CONSTRAINT fksk20i68u5s98osmdrispa9bt2 FOREIGN KEY (id_user2) REFERENCES public."user"(id_user);
-
-
---
--- TOC entry 2108 (class 2606 OID 16472)
+-- TOC entry 2108 (class 2606 OID 17690)
 -- Name: contact fkx0wbmi3et03b7xwys8sa0d7; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -622,7 +623,7 @@ ALTER TABLE ONLY public.contact
     ADD CONSTRAINT fkx0wbmi3et03b7xwys8sa0d7 FOREIGN KEY (id_contact_type) REFERENCES public.contact_type(id_contact_type);
 
 
--- Completed on 2018-09-08 14:21:33
+-- Completed on 2018-09-08 20:55:31
 
 --
 -- PostgreSQL database dump complete
