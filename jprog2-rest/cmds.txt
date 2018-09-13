@@ -1,2 +1,12 @@
 # running spring boot project from cmd
 mvn spring-boot:run
+
+# kill process on specific port
+netstat -ano | findstr :port
+
+taskkill /PID someIDOfTheTask
+
+e.g.,
+
+netstat -ano | findstr :8080
+taskkill /PID 16548

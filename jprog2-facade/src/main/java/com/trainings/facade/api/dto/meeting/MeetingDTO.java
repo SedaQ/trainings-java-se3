@@ -23,6 +23,8 @@ public class MeetingDTO {
 	private String note;
 	private Set<MeetingPersonsDTO> persons = new HashSet<>();
 
+	public MeetingDTO() {}
+	
 	public MeetingDTO(Long idMeeting, LocalDateTime startTime, Duration duration, String place, String note,
 			Set<MeetingPersonsDTO> persons) {
 		super();

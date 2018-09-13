@@ -13,14 +13,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 
- * This class is used to replace Page class and reduce number of returned
- * elements (standard Page class contains fields, which are not usefull
- * (backward compatability)).
+ * This class is used to replace Page class and reduce number of returned elements (standard Page
+ * class contains fields, which are not usefull (backward compatability)).
  * 
  * @author Pavel Šeda
  *
  */
-@ApiObject(name = "Result info (Page)", description = "Content (Retrieved data) and meta information about REST API result page. Including page number, number of elements in page, size of elements, total number of elements and total number of pages")
+@ApiObject(name = "Result info (Page)",
+	description = "Content (Retrieved data) and meta information about REST API result page. Including page number, number of elements in page, size of elements, total number of elements and total number of pages")
 @JacksonXmlRootElement(localName = "page_resource")
 public class PageResultResource<E> {
 
@@ -32,8 +32,7 @@ public class PageResultResource<E> {
 	@ApiModelProperty(value = "Pagination including: page number, number of elements in page, size, total elements and total pages.")
 	private Pagination<E> pagination;
 
-	public PageResultResource() {
-	}
+	public PageResultResource() {}
 
 	public PageResultResource(List<E> content) {
 		super();
@@ -63,6 +62,7 @@ public class PageResultResource<E> {
 	}
 
 	public static class Pagination<T> {
+
 		@ApiModelProperty(value = "Page number.")
 		@JsonProperty(required = true)
 		private int number;
@@ -79,8 +79,7 @@ public class PageResultResource<E> {
 		@JsonProperty(required = true)
 		private int totalPages;
 
-		public Pagination() {
-		}
+		public Pagination() {}
 
 		public Pagination(int number, int numberOfElements, int size, long totalElements, int totalPages) {
 			super();
@@ -133,15 +132,15 @@ public class PageResultResource<E> {
 
 		@Override
 		public String toString() {
-			return "PageMetadata [number=" + number + ", numberOfElements=" + numberOfElements + ", size=" + size
-					+ ", totalElements=" + totalElements + ", totalPages=" + totalPages + "]";
+			return "PageMetadata [number=" + number + ", numberOfElements=" + numberOfElements + ", size=" + size + ", totalElements="
+					+ totalElements + ", totalPages=" + totalPages + "]";
 		}
 	}
 
 	@Override
 	public String toString() {
-		return "PageResultDTO [content=" + content + ", pageMetadata=" + pagination + ", getContent()=" + getContent()
-				+ ", getPageMetadata()=" + getPagination() + "]";
+		return "PageResultDTO [content=" + content + ", pageMetadata=" + pagination + ", getContent()=" + getContent() + ", getPageMetadata()="
+				+ getPagination() + "]";
 	}
 
 }

@@ -11,8 +11,8 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<maven.compiler.source>10</maven.compiler.source>
-		<maven.compiler.target>10</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -32,10 +32,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -44,29 +40,14 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>io.swagger</groupId>
-				<artifactId>swagger-codegen-maven-plugin</artifactId>
-				<version>2.2.3</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<inputSpec>http://localhost:8080/jprog2-rest/api/v1/v2/api-docs?group=public-api</inputSpec>
-							<language>java</language>
-							<configOptions>
-								<dateLibrary>java8</dateLibrary>
-							</configOptions>
-							<output>${project.build.directory}/generated-sources</output>
-							<apiPackage>io.swagger.handler</apiPackage>
-							<modelPackage>io.swagger.model</modelPackage>
-							<invokerPackage>io.swagger.handler</invokerPackage>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+			<!-- <plugin> <groupId>io.swagger</groupId> <artifactId>swagger-codegen-maven-plugin</artifactId> 
+				<version>2.2.3</version> <executions> <execution> <goals> <goal>generate</goal> 
+				</goals> <configuration> <inputSpec>http://localhost:8080/jprog2-rest/api/v1/v2/api-docs?group=public-api</inputSpec> 
+				<language>java</language> <configOptions> <dateLibrary>java8</dateLibrary> 
+				</configOptions> <output>${project.build.directory}/generated-sources</output> 
+				<apiPackage>io.swagger.handler</apiPackage> <modelPackage>io.swagger.model</modelPackage> 
+				<invokerPackage>io.swagger.handler</invokerPackage> </configuration> </execution> 
+				</executions> </plugin> -->
 		</plugins>
 	</build>
 

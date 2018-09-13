@@ -15,8 +15,9 @@ public interface InterfaceMethods {
 		System.out.println("default method..");
 	}
 
-	private void printPrivateMethod() {
-		System.out.println("private method..");
-	}
+	// since Java 9
+	/*
+	 * private void printPrivateMethod() { System.out.println("private method.."); }
+	 */
 
 }

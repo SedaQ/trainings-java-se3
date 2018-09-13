@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.4.RELEASE</version>
+		<version>2.0.5.RELEASE</version>
 	</parent>
 
 	<developers>
@@ -23,8 +23,8 @@
 	</developers>
 
 	<properties>
-		<maven.compiler.source>10</maven.compiler.source>
-		<maven.compiler.target>10</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -118,56 +118,27 @@
 		</pluginManagement>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>rest</id>
-			<modules>
-				<module>jprog2-jpa</module>
-				<module>jprog2-service</module>
-				<module>jprog2-facade</module>
-				<module>jprog2-rest</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>swing</id>
-			<modules>
-				<module>jprog2-swing</module>
-				<module>jprog2-jdbc</module>
-				<module>jprog2-xml</module>
-				<module>jprog2-json</module>
-				<module>jprog2-io</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>javafx</id>
-			<modules>
-				<module>jprog2-javafx</module>
-				<module>jprog2-jdbc</module>
-				<module>jprog2-xml</module>
-				<module>jprog2-json</module>
-				<module>jprog2-io</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>all</id>
-			<modules>
-				<module>jprog2-swing</module>
-				<module>jprog2-javafx</module>
-				<module>jprog2-jdbc</module>
-				<module>jprog2-rest</module>
-				<module>jprog2-xml</module>
-				<module>jprog2-json</module>
-				<module>jprog2-rest-client</module>
-				<module>jprog2-soap</module>
-				<module>jprog2-soap-client</module>
-				<module>jprog2-jpa</module>
-				<module>jprog2-io</module>
-				<module>jprog2-lambda-expressions</module>
-				<module>jprog2-multithreading</module>
-				<module>jprog2-service</module>
-				<module>jprog2-facade</module>
-			</modules>
-		</profile>
-	</profiles>
+	<!-- reactor options -->
+	<!-- https://stackoverflow.com/a/3899772/2892314 -->
+	<!-- rest -->
+	<!-- mvn clean install -pl jprog2-rest -am -->
+
+	<modules>
+		<module>jprog2-swing</module>
+		<module>jprog2-javafx</module>
+		<module>jprog2-jdbc</module>
+		<module>jprog2-rest</module>
+		<module>jprog2-xml</module>
+		<module>jprog2-json</module>
+		<module>jprog2-rest-client</module>
+		<module>jprog2-soap</module>
+		<module>jprog2-soap-client</module>
+		<module>jprog2-jpa</module>
+		<module>jprog2-io</module>
+		<module>jprog2-lambda-expressions</module>
+		<module>jprog2-multithreading</module>
+		<module>jprog2-service</module>
+		<module>jprog2-facade</module>
+	</modules>
 
 </project>

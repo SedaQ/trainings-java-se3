@@ -292,63 +292,47 @@ INSERT INTO public.person_has_meeting (id_person, id_meeting) VALUES (4, 3);
 -- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.role (id_role, title) VALUES (1, 'ADMIN');
-INSERT INTO public.role (id_role, title) VALUES (2, 'person');
-INSERT INTO public.role (id_role, title) VALUES (3, 'FIRST_LINE_MANAGER');
-INSERT INTO public.role (id_role, title) VALUES (4, 'SECOND_LINE_MANAGER');
-INSERT INTO public.role (id_role, title) VALUES (5, 'CEO');
-INSERT INTO public.role (id_role, title) VALUES (6, 'CTO');
-
-
---
--- TOC entry 2249 (class 0 OID 18046)
--- Dependencies: 206
--- Data for Name: person_has_role; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (1, 1);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 2);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (3, 3);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (4, 4);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (5, 5);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (6, 6);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 7);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 8);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 9);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 10);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 11);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 12);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 13);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 14);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 15);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 16);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 17);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 18);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 19);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 20);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 21);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 22);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 23);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 24);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 25);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 26);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 27);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 28);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 29);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 30);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 31);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 32);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 33);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 34);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 35);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 36);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 37);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 38);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 39);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 40);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 41);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 42);
-INSERT INTO public.person_has_role (id_role, id_person) VALUES (2, 43);
+INSERT INTO public.person_role (id_person, role) VALUES (1, 'ADMIN');
+INSERT INTO public.person_role (id_person, role) VALUES (2, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (3, 'FIRST_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (4, 'SECOND_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (5, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (6, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (8, 'ADMIN');
+INSERT INTO public.person_role (id_person, role) VALUES (9, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (10, 'FIRST_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (11, 'SECOND_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (12, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (13, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (14, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (15, 'ADMIN');
+INSERT INTO public.person_role (id_person, role) VALUES (16, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (17, 'FIRST_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (18, 'SECOND_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (19, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (20, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (21, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (22, 'ADMIN');
+INSERT INTO public.person_role (id_person, role) VALUES (23, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (24, 'FIRST_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (25, 'SECOND_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (26, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (27, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (28, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (29, 'ADMIN');
+INSERT INTO public.person_role (id_person, role) VALUES (30, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (31, 'FIRST_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (32, 'SECOND_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (33, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (34, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (35, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (36, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (37, 'FIRST_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (38, 'SECOND_LINE_MANAGER');
+INSERT INTO public.person_role (id_person, role) VALUES (39, 'CEO');
+INSERT INTO public.person_role (id_person, role) VALUES (40, 'CTO');
+INSERT INTO public.person_role (id_person, role) VALUES (41, 'PERSON');
+INSERT INTO public.person_role (id_person, role) VALUES (42, 'PERSON');
 
 
 --
@@ -496,15 +480,6 @@ SELECT pg_catalog.setval('public.relationship_id_relationship_seq', 90, false);
 --
 
 SELECT pg_catalog.setval('public.relationship_type_id_relationship_type_seq', 8, false);
-
-
---
--- TOC entry 2269 (class 0 OID 0)
--- Dependencies: 213
--- Name: role_id_role_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.role_id_role_seq', 6, false);
 
 
 -- Completed on 2018-09-08 21:38:47

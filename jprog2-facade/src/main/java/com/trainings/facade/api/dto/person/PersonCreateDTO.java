@@ -2,6 +2,8 @@ package com.trainings.facade.api.dto.person;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
@@ -9,6 +11,7 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.trainings.facade.api.enums.RoleDTO;
 
 /**
  * 
@@ -28,8 +31,31 @@ public class PersonCreateDTO {
 	@Past
 	private LocalDate birthday;
 	private Integer age;
+	private Set<RoleDTO> roles = new HashSet<RoleDTO>();
 
-	public PersonCreateDTO() {
+	public PersonCreateDTO() {}
+	
+	public PersonCreateDTO(
+			@NotEmpty @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\\\\\.[A-Z]{2,6}$", message = "This email is not valid.") String email,
+			char[] pwd, String nickname, String firstName, String surname, @Past LocalDate birthday, Integer age,
+			Set<RoleDTO> roles) {
+		super();
+		this.email = email;
+		this.pwd = pwd;
+		this.nickname = nickname;
+		this.firstName = firstName;
+		this.surname = surname;
+		this.birthday = birthday;
+		this.age = age;
+		this.roles = roles;
+	}
+
+	public Set<RoleDTO> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleDTO> roles) {
+		this.roles = roles;
 	}
 
 	public String getEmail() {
@@ -105,6 +131,8 @@ public class PersonCreateDTO {
 		builder.append(birthday);
 		builder.append(", age=");
 		builder.append(age);
+		builder.append(", roles=");
+		builder.append(roles);
 		builder.append("]");
 		return builder.toString();
 	}

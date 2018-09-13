@@ -127,7 +127,7 @@ public class UsersTabPaneController {
 	}
 
 	private void initializeProgressBars() {
-		progressIndicatorTask = new Task<>() {
+		progressIndicatorTask = new Task<Void>() {
 			@Override
 			public Void call() {
 				for (int i = 1; i <= refreshRate; i++) {
@@ -152,7 +152,7 @@ public class UsersTabPaneController {
 				new KeyFrame(Duration.seconds(10), e -> {
 				}, new KeyValue(seconds, 10)));
 		timeline.setOnFinished(event -> {
-			Task<Void> refreshData = new Task<>() {
+			Task<Void> refreshData = new Task<Void>() {
 				@Override
 				public Void call() {
 					System.out.println("On finished in Task");

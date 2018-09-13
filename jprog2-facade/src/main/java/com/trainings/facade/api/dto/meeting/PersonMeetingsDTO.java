@@ -19,6 +19,15 @@ public class PersonMeetingsDTO {
 	public PersonMeetingsDTO() {
 	}
 
+	public PersonMeetingsDTO(Long idMeeting, LocalDateTime startTime, Duration duration, String place, String note) {
+		super();
+		this.idMeeting = idMeeting;
+		this.startTime = startTime;
+		this.duration = duration;
+		this.place = place;
+		this.note = note;
+	}
+
 	public Long getIdMeeting() {
 		return idMeeting;
 	}

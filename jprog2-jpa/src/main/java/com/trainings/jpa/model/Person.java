@@ -5,11 +5,14 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +23,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.trainings.jpa.model.enums.Role;
+
 /**
  * 
  * @author Pavel Šeda
@@ -28,6 +33,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "\"person\"")
 public class Person implements Serializable {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_person", updatable = false, nullable = false)
@@ -46,10 +52,13 @@ public class Person implements Serializable {
 	private LocalDate birthday;
 	@Column(nullable = true)
 	private Integer age;
+	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+	@CollectionTable(name = "person_role", joinColumns = @JoinColumn(name = "id_person"))
+	@Column(name = "role", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Set<Role> roles = new HashSet<>();
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Meeting.class, mappedBy = "persons")
 	private Set<Meeting> meetings = new HashSet<>();
-	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Role.class, mappedBy = "persons")
-	private Set<Role> roles = new HashSet<>();
 	@ManyToOne
 	@JoinColumn(name = "id_address")
 	private Address address;
@@ -60,8 +69,7 @@ public class Person implements Serializable {
 	@OneToMany(targetEntity = Relationship.class, mappedBy = "person2")
 	private Set<Person> persons2 = new HashSet<>();
 
-	public Person() {
-	}
+	public Person() {}
 
 	public Long getIdPerson() {
 		return idPerson;
