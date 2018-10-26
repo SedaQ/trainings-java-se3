@@ -57,41 +57,6 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger2</artifactId>
-				<version>${swagger.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger-ui</artifactId>
-				<version>${swagger.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-bean-validators</artifactId>
-				<version>${swagger.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-core</artifactId>
-				<version>${swagger.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-schema</artifactId>
-				<version>${swagger.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-spi</artifactId>
-				<version>${swagger.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-spring-web</artifactId>
-				<version>${swagger.version}</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -125,20 +90,21 @@
 
 	<modules>
 		<module>jprog2-swing</module>
+		<module>jprog2-concurrency</module>
 		<module>jprog2-javafx</module>
-		<module>jprog2-jdbc</module>
-		<module>jprog2-rest</module>
 		<module>jprog2-xml</module>
 		<module>jprog2-json</module>
-		<module>jprog2-rest-client</module>
 		<module>jprog2-soap</module>
 		<module>jprog2-soap-client</module>
-		<module>jprog2-jpa</module>
 		<module>jprog2-io</module>
-		<module>jprog2-lambda-expressions</module>
 		<module>jprog2-multithreading</module>
-		<module>jprog2-service</module>
-		<module>jprog2-facade</module>
+		<module>jprog2-concurrency</module>
+		<module>jprog2-localization</module>
+		<module>jprog2-jdbc</module>
+		<module>jprog2-nio2</module>
+		<module>jprog2-strings-dates</module>
+		<module>jprog2-functional-programming</module>
+		<module>jprog2-generics-collections</module>
 	</modules>
 
 </project>
