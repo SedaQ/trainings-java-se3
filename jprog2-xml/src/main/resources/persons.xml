@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<content  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="persons.xsd">
+    <person>
+        <person_id state="CZE">1</person_id>
+        <first_name>Pavel</first_name>
+        <last_name>Seda</last_name>
+        <address>
+            <street>XYZ123</street>
+            <zip_code>91200</zip_code>
+            <house_number>12</house_number>
+            <city>Brno</city>
+            <country>Czech Republic</country>
+        </address>
+        <group>
+            <name>legends</name>
+            <roles>
+                <role>CHIEF</role>
+            </roles>
+        </group>
+    </person>
+</content>
+
