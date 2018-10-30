@@ -1,0 +1,5 @@
+<!ELEMENT content (person+)>
+<!ELEMENT person (person_id, first_name, last_name, address, group)>
+<!ELEMENT address (street, zip_code, house_number, city, country)>
+<!ELEMENT group (name, roles)>
+<!ELEMENT roles (role+)>

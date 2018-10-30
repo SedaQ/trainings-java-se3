@@ -1,4 +1,4 @@
-package com.trainings.xml;
+package com.trainings.xml.xpath;
 
 /**
  *
