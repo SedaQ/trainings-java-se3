@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--<content  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="persons.xsd"> -->
+<content>
+    <person state="CZE">
+        <person_id>1</person_id>
+        <first_name>Pavel</first_name>
+        <last_name>Seda</last_name>
+        <address>
+            <street>XYZ123</street>
+            <zip_code>91200</zip_code>
+            <house_number>12</house_number>
+            <city>Brno</city>
+            <country>Czech Republic</country>
+        </address>
+        <group>
+            <name>legends</name>
+            <roles>
+                <role>CHIEF</role>
+            </roles>
+        </group>
+    </person>
+    <person state="ENG">
+        <person_id>2</person_id>
+        <first_name>Karel</first_name>
+        <last_name>Tovaris</last_name>
+        <address>
+            <street>XYZ123</street>
+            <zip_code>91200</zip_code>
+            <house_number>12</house_number>
+            <city>Brno</city>
+            <country>Czech Republic</country>
+        </address>
+        <group>
+            <name>legends</name>
+            <roles>
+                <role>CHIEF</role>
+            </roles>
+        </group>
+    </person>
+    <person state="SVK">
+        <person_id>3</person_id>
+        <first_name>Anezka</first_name>
+        <last_name>Burska</last_name>
+        <address>
+            <street>XYZ123</street>
+            <zip_code>91200</zip_code>
+            <house_number>12</house_number>
+            <city>Brno</city>
+            <country>Czech Republic</country>
+        </address>
+        <group>
+            <name>legends</name>
+            <roles>
+                <role>EMPLOYEE</role>
+            </roles>
+        </group>
+    </person>
+</content>
+
