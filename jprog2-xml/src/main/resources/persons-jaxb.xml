@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<content>
+    <person>
+        <person_id>0</person_id>
+        <address>
+            <zip_code>62300</zip_code>
+            <house_number>123</house_number>
+            <city>Brno</city>
+            <country>CZE</country>
+        </address>
+        <group>
+            <name>group1</name>
+            <roles>
+                <role>test</role>
+            </roles>
+        </group>
+    </person>
+</content>

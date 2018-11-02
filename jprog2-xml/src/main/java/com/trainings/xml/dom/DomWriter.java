@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- *
  * @author Pavel Seda
  */
 public class DomWriter {

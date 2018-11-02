@@ -1,7 +1,6 @@
 package com.trainings.xml.dom;
 
 /**
- *
  * @author Pavel Seda
  */
 public class PersonDOM {

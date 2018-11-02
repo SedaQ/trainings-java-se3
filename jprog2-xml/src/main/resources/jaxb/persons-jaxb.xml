@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<content>
+    <person>
+        <person_id>0</person_id>
+        <address>
+            <street>Masarykova</street>
+            <zip_code>1123123</zip_code>
+            <house_number>44</house_number>
+            <city>Brno</city>
+            <country>CZE</country>
+        </address>
+        <group>
+            <name>group1</name>
+            <roles>
+                <role>ADMIN</role>
+            </roles>
+        </group>
+    </person>
+</content>
