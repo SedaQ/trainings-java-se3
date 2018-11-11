@@ -11,5 +11,11 @@
 
     <artifactId>jprog2-jdbc</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+    </dependencies>
 </project>

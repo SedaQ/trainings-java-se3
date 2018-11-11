@@ -4,10 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.regex.Pattern;
 
 /**
  * @author Pavel Seda
@@ -25,7 +21,7 @@ public class XPathSeleniumExample {
         System.setProperty("webdriver.chrome.driver", "./jprog2-xml/src/main/resources/chrome-driver/chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
-        driver.navigate().to("http://facebook.com");
+        driver.navigate().to("https://facebook.com");
 
         WebElement username = driver.findElement(By.id("email"));
         username.sendKeys("java-trainings@email.cz");
