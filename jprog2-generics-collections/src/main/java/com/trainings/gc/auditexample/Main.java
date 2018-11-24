@@ -1,8 +1,8 @@
 package com.trainings.gc.auditexample;
 
-import com.training.ocp.gc.tasks.auditexample.pojos.DescriptionPojo;
-import com.training.ocp.gc.tasks.auditexample.service.AuditService;
-import com.training.ocp.gc.tasks.auditexample.service.AuditServiceImpl;
+import com.trainings.gc.auditexample.pojos.DescriptionPojo;
+import com.trainings.gc.auditexample.service.AuditService;
+import com.trainings.gc.auditexample.service.AuditServiceImpl;
 
 /**
  * 

@@ -1,7 +1,8 @@
-package com.trainings.jdbc.model;
+package com.trainings.jdbc.repository;
 
 
 import com.trainings.jdbc.dbconnection.DBConnectionDriverManager;
+import com.trainings.jdbc.dbconnection.DBConnectionHikariDataSource;
 import com.trainings.jdbc.dto.PersonDTO;
 
 import java.sql.*;
@@ -14,12 +15,12 @@ import java.util.List;
 /**
  * @author Pavel Seda
  */
-public class PersonModel {
+public class PersonRepository {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
 
     public List<PersonDTO> getAllPersons() {
-        try (Connection conn = DBConnectionDriverManager.getConnection(); Statement statement = conn.createStatement(); ResultSet rs = statement.executeQuery("SELECT * FROM person");) {
+        try (Connection conn = DBConnectionHikariDataSource.getConnection(); Statement statement = conn.createStatement(); ResultSet rs = statement.executeQuery("SELECT * FROM person");) {
             return mapPersonTableToDTO(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -28,7 +29,7 @@ public class PersonModel {
     }
 
     public PersonDTO getPersonById(long id) {
-        try (Connection conn = DBConnectionDriverManager.getConnection(); Statement statement = conn.createStatement();
+        try (Connection conn = DBConnectionHikariDataSource.getConnection(); Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery("SELECT * FROM person WHERE id_person=" + id);) {
             PersonDTO person = null;
             if (rs.next()) {
@@ -45,7 +46,7 @@ public class PersonModel {
         PreparedStatement prepStatement = null;
         String findByIdString = "SELECT * FROM person WHERE id_person = ?";
         ResultSet rs = null;
-        try (Connection conn = DBConnectionDriverManager.getConnection();) {
+        try (Connection conn = DBConnectionHikariDataSource.getConnection();) {
             prepStatement = conn.prepareStatement(findByIdString);
             prepStatement.setLong(1, id);
             rs = prepStatement.executeQuery();
@@ -76,7 +77,7 @@ public class PersonModel {
     }
 
     public int createPerson() {
-        try (Connection conn = DBConnectionDriverManager.getConnection(); Statement statement = conn.createStatement();) {
+        try (Connection conn = DBConnectionHikariDataSource.getConnection(); Statement statement = conn.createStatement();) {
             int affectedRows =
                     statement.executeUpdate("INSERT INTO person VALUES (50, 50, 1983-05-25, qweseznam.cz, David, Smeták, myPwd, Kunz)");
             return affectedRows;
@@ -87,7 +88,7 @@ public class PersonModel {
     }
 
     public int updatePersonAge(int personID, int age) {
-        try (Connection conn = DBConnectionDriverManager.getConnection(); Statement statement = conn.createStatement();) {
+        try (Connection conn = DBConnectionHikariDataSource.getConnection(); Statement statement = conn.createStatement();) {
             int affectedRows = statement.executeUpdate("UPDATE person SET age = " + age + " WHERE id_person = " + personID);
             return affectedRows;
         } catch (SQLException e) {

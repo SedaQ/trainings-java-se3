@@ -38,7 +38,7 @@ public class App extends Application {
 	}
 
 	private Callback<Class<?>, Object> initControllerFactory() {
-		Callback<Class<?>, Object> controllerFactory = type -> {
+		return type -> {
 			if (type == App.class) {
 				return new MainController();
 			} else if (type == UsersTabPaneController.class) {
@@ -52,7 +52,6 @@ public class App extends Application {
 				}
 			}
 		};
-		return controllerFactory;
 	}
 
 }

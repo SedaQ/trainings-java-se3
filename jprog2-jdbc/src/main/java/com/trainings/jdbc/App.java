@@ -1,7 +1,7 @@
 package com.trainings.jdbc;
 
 import com.trainings.jdbc.dto.PersonDTO;
-import com.trainings.jdbc.model.PersonModel;
+import com.trainings.jdbc.repository.PersonRepository;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class App {
 
     public static void main(String[] args) {
-        PersonModel pm = new PersonModel();
+        PersonRepository pm = new PersonRepository();
 
         PersonDTO personById = pm.getPersonById(4);
         System.out.println(personById);

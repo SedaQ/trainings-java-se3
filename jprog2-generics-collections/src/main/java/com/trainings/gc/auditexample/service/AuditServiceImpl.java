@@ -1,6 +1,6 @@
 package com.trainings.gc.auditexample.service;
 
-import com.training.ocp.gc.tasks.auditexample.pojos.AbstractAuditPojo;
+import com.trainings.gc.auditexample.pojos.AbstractAuditPojo;
 
 /**
  * That class illustrate possible auditing to some NoSQL database and requiring
