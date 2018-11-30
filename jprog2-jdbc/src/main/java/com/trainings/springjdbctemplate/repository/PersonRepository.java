@@ -1,6 +1,5 @@
 package com.trainings.springjdbctemplate.repository;
 
-import com.trainings.jdbc.dto.PersonDTO;
 import com.trainings.springjdbctemplate.dto.PersonDto;
 import com.trainings.springjdbctemplate.mapper.PersonMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
