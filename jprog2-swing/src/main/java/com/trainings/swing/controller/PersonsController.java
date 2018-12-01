@@ -24,4 +24,12 @@ public class PersonsController {
     public List<PersonDto> findAllPersons() {
         return personModel.findAllPersons();
     }
+
+    public PersonDto findById(long id) {
+        return personModel.findById(id);
+    }
+
+    public void updatePerson(PersonDto personDto) {
+        personModel.updatePerson(personDto);
+    }
 }

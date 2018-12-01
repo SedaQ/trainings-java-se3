@@ -1,15 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.trainings.swing.view;
 
 import com.trainings.swing.controller.PersonsController;
 import com.trainings.swing.dto.PersonDto;
 import com.trainings.swing.model.PersonModel;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.*;
+import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingWorker;
 import javax.swing.table.*;
@@ -29,9 +32,10 @@ public class App extends javax.swing.JFrame {
      */
     public App() {
         initComponents();
-        initControllers();
-
         initComponentsWithOwnProperties();
+
+        initControllers();
+        initListeners();
     }
 
     private void initControllers() {
@@ -42,6 +46,24 @@ public class App extends javax.swing.JFrame {
     private void initComponentsWithOwnProperties() {
         sorter = new TableRowSorter<>(personsTable.getModel());
         personsTable.setRowSorter(sorter);
+
+    }
+
+    private void initListeners() {
+        personsTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    JTable target = (JTable) e.getSource();
+                    int row = target.getSelectedRow();
+                    int column = 0;
+                    String personId = target.getModel().getValueAt(row, column).toString().trim();
+
+                    PersonEditFrame pef = new PersonEditFrame(Integer.parseInt(personId), personsController);
+                    pef.setVisible(true);
+                }
+            }
+        });
     }
 
     /**
@@ -65,7 +87,10 @@ public class App extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuClearTable = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItemContactViaEmail = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +105,12 @@ public class App extends javax.swing.JFrame {
                 "id", "fist name", "last name", "nick name"
             }
         ));
+        personsTable.setFocusable(false);
+        personsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                personsTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(personsTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -115,7 +146,7 @@ public class App extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Filter Persons by Last Name");
+        jLabel1.setText("Filter Persons");
 
         jLabel2.setText("Progress Bar");
 
@@ -129,10 +160,30 @@ public class App extends javax.swing.JFrame {
         });
         jMenuFile.add(jMenuClearTable);
 
+        jMenuItem1.setText("Close");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItem1);
+
         jMenuBar1.add(jMenuFile);
 
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("Contact Us");
+
+        jMenuItemContactViaEmail.setText("Email");
+        jMenuItemContactViaEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemContactViaEmailActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemContactViaEmail);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -220,6 +271,19 @@ public class App extends javax.swing.JFrame {
         sorter.setRowFilter(rf);
     }//GEN-LAST:event_filterTableKeyPressed
 
+    private void jMenuItemContactViaEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemContactViaEmailActionPerformed
+        EmailFrame eF = new EmailFrame();
+        eF.setVisible(true);
+    }//GEN-LAST:event_jMenuItemContactViaEmailActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void personsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_personsTableMouseClicked
+        ListSelectionModel lsm = personsTable.getSelectionModel();
+    }//GEN-LAST:event_personsTableMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -260,10 +324,13 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JTextField filterTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuClearTable;
     private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemContactViaEmail;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton loadAllPersons;
@@ -271,4 +338,22 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JTabbedPane personsTab;
     private javax.swing.JTable personsTable;
     // End of variables declaration//GEN-END:variables
+}
+
+class TextFrame extends JFrame {
+
+    public TextFrame(String content) {
+        super("TextFrame");
+
+        JTextArea ta = new JTextArea();
+        ta.setText(content);
+        getContentPane().add(ta);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                dispose();
+            }
+        });
+
+        setSize(200, 100);
+    }
 }
