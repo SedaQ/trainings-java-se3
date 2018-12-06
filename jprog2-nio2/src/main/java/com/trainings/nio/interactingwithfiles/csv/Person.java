@@ -9,31 +9,31 @@ import java.util.stream.Collectors;
  */
 public class Person {
 
-    private String id;
+    private long id;
     private String name;
     private String email;
     private String description;
-    private String age;
+    private int age;
 
     public Person(String[] personCsvArray) {
         Objects.requireNonNull(personCsvArray);
         if (personCsvArray.length == 5) {
-            this.id = personCsvArray[0];
+            this.id = Long.parseLong(personCsvArray[0]);
             this.name = personCsvArray[1];
             this.email = personCsvArray[2];
             this.description = personCsvArray[3];
-            this.age = personCsvArray[4];
+            this.age = Integer.parseInt(personCsvArray[4].trim());
         } else {
             System.out.println(personCsvArray.length);
             throw new IllegalArgumentException("Provided csv file have different number of columns");
         }
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -61,16 +61,16 @@ public class Person {
         this.description = description;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
     @Override
     public String toString() {
-        return Arrays.asList(id, name, email, description, age).stream().collect(Collectors.joining(","));
+        return Arrays.asList(String.valueOf(id), name, email, description, String.valueOf(age)).stream().collect(Collectors.joining(","));
     }
 }
